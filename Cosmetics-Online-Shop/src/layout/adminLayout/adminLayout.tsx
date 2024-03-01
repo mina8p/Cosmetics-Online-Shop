@@ -1,15 +1,13 @@
-import AdminLogin from "../../components/admin/adminLogin";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-// import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import AdminHeder from "../../components/adminHeder";
+import AdminFooter from "../../components/adminFooter";
 
 const AdminLayout = () => {
   return (
     <>
-
-      <Header />
-      <AdminLogin />
-      <Footer />
+      <AdminHeder />
+      <Outlet />
+      <AdminFooter />
     </>
   );
 };

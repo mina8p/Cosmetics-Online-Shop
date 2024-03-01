@@ -6,7 +6,7 @@ export default function Header() {
     <div>
       
       <div>
-      <Link to="/Admin">پنل مدیریت</Link>
+      <Link to="/adminLogin">پنل مدیریت</Link>
       </div>
       <h1 className="text-3xl font-bold underline">
         header

@@ -22,7 +22,7 @@ const AdminLogin: React.FC = () => {
       );
       window.sessionStorage.setItem("token", response.data.token);
 
-      navigate("/AdminPanel");
+      navigate("/adminPanel");
     } catch (error) {
       const html = errorHandler(error);
       setError(html);
