@@ -1,28 +1,26 @@
-import React from "react";
 import {
   createBrowserRouter,
-  RouterProvider,
+  // RouterProvider,
   Route,
   createRoutesFromElements,
-  Routes,
 } from "react-router-dom";
 import RootLayout from "../layout/mainLayout/layout";
 import AdminLayout from "../layout/adminLayout/adminLayout";
+import AdminPanel from "../components/admin/adminPanel";
+
 // import AdminLogin from "../components/admin/adminLogin";
 
-const router = createBrowserRouter(
+const routes = createBrowserRouter(
   createRoutesFromElements(
-    <Route >
-      
+    <Route>
       <Route path="/" element={<RootLayout />} />
-      
+
+      {/* <Route path="/AllProduct" element={<RootLayout />} /> */}
+
       <Route path="/Admin" element={<AdminLayout />} />
+      <Route path="/AdminPanel" element={<AdminPanel />} />
     </Route>
-    
   )
 );
 
-export default router;
-
-
-
+export default routes;
