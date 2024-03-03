@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <div className=" flex justify-around items-center shadow h-20 w-full bg-[#FEF9FC]">
+    <div className=" flex justify-around items-center shadow h-20 w-full bg-purple-50">
       <div className="flex ">
-        <div className="mr-5 flex flex-col justify-center items-center font-bold hover:text-pink-500">
+        <div className="mr-5 flex flex-col justify-center items-center font-bold hover:text-purple-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -22,7 +22,7 @@ export default function Header() {
 
           <Link to="/adminLogin">پنل مدیریت</Link>
         </div>
-        <div className="flex flex-col justify-center items-center font-bold hover:text-pink-500">
+        <div className="flex flex-col justify-center items-center font-bold hover:text-purple-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -43,12 +43,12 @@ export default function Header() {
       </div>
 
       <div className=" flex  justify-center items-center font-bold ">
-        <div className="mr-5 hover:text-pink-500">محصولات</div>
-        <div className="mr-5 hover:text-pink-500">برند ها</div>
+        <div className="mr-5 hover:text-purple-600">محصولات</div>
+        <div className="mr-5 hover:text-purple-600">برند ها</div>
         <div>
           <img
-            className="h-16 w-16 rounded-full  border-4 border-pink-500"
-            src="../../public/cosmetics.png"
+            className="h-16 w-16 rounded-full "
+            src="../../public/lavender.png"
             alt=""
           />
         </div>

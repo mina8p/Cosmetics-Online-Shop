@@ -3,6 +3,7 @@ export const errorHandler = (axiosError: (any)) => {
     if (axiosError.response.status === 403) {
       window.location.href = "/login";
       window.sessionStorage.removeItem("token");
+      
     } else if (Array.isArray(axiosError.response.data.message)) {
       let html = "";
       for (const err of axiosError.response.data.message) {
@@ -15,3 +16,5 @@ export const errorHandler = (axiosError: (any)) => {
       return "User Not Found";
     }
   };
+
+   

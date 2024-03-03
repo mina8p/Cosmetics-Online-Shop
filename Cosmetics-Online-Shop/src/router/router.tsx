@@ -3,7 +3,7 @@ import RootLayout from "../layout/mainLayout/layout";
 import AdminLayout from "../layout/adminLayout/adminLayout";
 import AdminLogin from "../pages/admin/adminLogin";
 import AdminPanelOrders from "../pages/admin/adminPanelOrders";
-import AdminPanelPrice from "../pages/admin/adminPanelPrice";
+import AdminPanelInventoryPrices from "../pages/admin/adminPanelPrices";
 import AdminPanelProducts from "../pages/admin/adminPanelProducts";
 import HomePage from "../pages/homePage/homePage";
 import NotFound from "../pages/notFoundPage/notFoundPage";
@@ -80,8 +80,8 @@ const routes = createBrowserRouter([
         element: <AdminPanelOrders />,
       },
       {
-        path: "AdminPanelPrice",
-        element: <AdminPanelPrice />,
+        path: "adminPanelInventory&Prices",
+        element: <AdminPanelInventoryPrices/>,
       },
       {
         path: "adminPanelProducts",

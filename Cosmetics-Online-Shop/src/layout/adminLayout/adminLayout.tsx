@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import AdminHeder from "../../components/adminHeder";
-import AdminFooter from "../../components/adminFooter";
+import AdminTopBar from "../../components/adminPanelComponents/adminTopBar";
+import AdminFooter from "../../components/adminPanelComponents/adminFooter";
 
 const AdminLayout = () => {
   return (
     <>
-      <AdminHeder />
+      <AdminTopBar />
       <Outlet />
       <AdminFooter />
     </>
