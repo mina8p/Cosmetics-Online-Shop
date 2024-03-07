@@ -1,34 +1,36 @@
-import React from 'react';
+import { useQuery } from "react-query";
+import { fetchuserById } from "../../../api/fetchuserbyid";
+import { Order } from "../../../pages/admin/adminPanelOrders";
+import moment from "jalali-moment";
 
-interface OrdersTableProps {
-  orders: any[];
-}
+export default function OrdersTable({
+  _id,
+  createdAt,
+  totalPrice,
+  user,
+  
+}: Order) {
+  //////////////////////
+  const { data: userIdData } = useQuery([`userId`,user], () => fetchuserById(user));
+  console.log(userIdData);
+  //////////////////////
+  const solarCalendarCreatedAt = moment(createdAt).format('jYYYY/jMM/jDD')
 
-const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
   return (
-    <table className="min-w-full divide-y divide-gray-200">
-
-      <thead className="bg-gray-50">
-
-        <tr>
-
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-          >
-            User
-          </th>
-
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-          >
-            Product
-          </th>
-
-        </tr>
-          
-            </thead>
-            </table>
-  )}
-  export default OrdersTable
+    <tr key={_id}>
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+        {userIdData?.data?.user?.firstname} {userIdData?.data?.user?.lastname}
+      </td>
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+        {totalPrice}
+      </td>
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+        {solarCalendarCreatedAt}
+      </td>
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+        <button>بررسی سفارش</button>
+        {/* {deliveryStatus ? "Delivered" : "Not Delivered"} */}
+      </td>
+    </tr>
+  );
+}
