@@ -11,10 +11,10 @@ export default function PriceTable({
   subcategory,
 }: Product) {
   //////////////////////
-  const { data: subCategoryIdData } = useQuery([`subCategoryId`], () =>
+  const { data: subCategoryData } = useQuery([`subCategoryId`], () =>
     fetchsubcategoryProducts(subcategory)
   );
-  console.log(subCategoryIdData);
+  console.log(subCategoryData);
   //////////////////////
 
   return (
@@ -33,8 +33,8 @@ export default function PriceTable({
         
 
         <p className="font-IRANSans">
-          {subCategoryIdData?.data?.subcategory?.category?.name}/
-          {subCategoryIdData?.data?.subcategory?.name}
+          {subCategoryData?.data?.subcategory?.category?.name}/
+          {subCategoryData?.data?.subcategory?.name}
         </p>
       </td>
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
