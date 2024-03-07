@@ -36,7 +36,7 @@ const AdminPanelPrices = () => {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            مدیریت محصولات
+            مدیریت موجودی و قیمت محصولات
           </h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -110,33 +110,30 @@ const AdminPanelPrices = () => {
       </div>
       {products?.total_pages > 1 && (
         <nav className="flex justify-center m-8">
-        <ul className="border-2 border-violet-200 rounded-lg flex">
-          {/* Previous Button */}
-          {currentPage > 1 && (
-            <li
-              className="cursor-pointer"
-              onClick={() => handlePageChange(currentPage - 1)}
-            >
-              <span className="px-3 border-x-2">قبلی</span>
-            </li>
-          )}
+          <ul className="border-2 border-violet-200 rounded-lg flex">
+            {currentPage > 1 && (
+              <li
+                className="cursor-pointer"
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                <span className="px-3 ">قبلی</span>
+              </li>
+            )}
 
-          {/* Current Page Number */}
-          <li className="bg-violet-200">
-            <span className="px-3 border-x-2">{currentPage}</span>
-          </li>
-
-          {/* Next Button */}
-          {currentPage < products.total_pages && (
-            <li
-              className="cursor-pointer"
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              <span className="px-3 border-x-2">بعدی</span>
+            <li className="bg-violet-200">
+              <span className="px-3 ">{currentPage}</span>
             </li>
-          )}
-        </ul>
-      </nav>
+
+            {currentPage < products.total_pages && (
+              <li
+                className="cursor-pointer"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <span className="px-3 ">بعدی</span>
+              </li>
+            )}
+          </ul>
+        </nav>
       )}
     </div>
   );

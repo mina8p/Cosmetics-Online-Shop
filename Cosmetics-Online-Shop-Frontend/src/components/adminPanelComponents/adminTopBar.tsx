@@ -10,10 +10,10 @@ export default function AdminTopBar() {
   }, [location]);
 
   return (
-    <div className="font-IRANSans w-full">
+    <div className="font-IRANSans w-full mt-6">
       <div className="flex gap-10 justify-center">
         <div
-          className={`text-3xl font-bold p-2 rounded-lg${
+          className={`text-3xl font-bold p-2 rounded-lg ${
             activeLink === "/adminPanel"
               ? "bg-violet-500 text-white"
               : "text-violet-500"
@@ -22,7 +22,7 @@ export default function AdminTopBar() {
           <Link to="/adminPanel">سفارش ها</Link>
         </div>
         <div
-          className={`text-3xl font-bold ${
+          className={`text-3xl font-bold p-2 rounded-lg ${
             activeLink === "/adminPanel/adminPanelInventory&Prices"
               ? "bg-violet-500 text-white"
               : "text-violet-500"
@@ -33,7 +33,7 @@ export default function AdminTopBar() {
           </Link>
         </div>
         <div
-          className={`text-3xl font-bold ${
+          className={`text-3xl font-bold p-2 rounded-lg ${
             activeLink === "/adminPanel/adminPanelProducts"
               ? "bg-violet-500 text-white"
               : "text-violet-500"

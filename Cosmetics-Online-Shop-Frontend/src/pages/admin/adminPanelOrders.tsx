@@ -135,7 +135,10 @@ const AdminPanelOrders = () => {
           </div>
         </div>
       </div>
-      <div className="pagination">
+
+      <nav className="pagination flex justify-center items-center mt-5 ">
+        <div className="border border-violet-200 w-28 flex justify-center items-center rounded-lg gap-2">
+
         <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage <= 1}>
           قبلی
         </button>
@@ -143,7 +146,8 @@ const AdminPanelOrders = () => {
         <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage >= totalPages}>
           بعدی
         </button>
-      </div>
+        </div>
+      </nav>
     </div>
   );
 };

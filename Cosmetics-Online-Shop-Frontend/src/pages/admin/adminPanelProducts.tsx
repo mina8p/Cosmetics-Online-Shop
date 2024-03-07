@@ -111,44 +111,32 @@ const AdminPanelProducts = () => {
       {products?.total_pages > 1 && (
         <nav className="flex justify-center m-8">
           <ul className="rounded-lg flex overflow-hidden">
-            {/* {Array.from({ length: products?.total_pages }, (_, index) => (
-              <li
-                className={
-                  index + 1 === currentPage
-                    ? "bg-violet-200 "
-                    : "cursor-pointer"
-                }
-                key={index + 1}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                <span className="px-3 border-x-2">{index + 1}</span>
-              </li>
-            ))} */}
+            
             {products?.total_pages > 1 && (
               <nav className="flex justify-center m-8">
                 <ul className="border-2 border-violet-200 rounded-lg flex">
-                  {/* Previous Button */}
+                  
                   {currentPage > 1 && (
                     <li
                       className="cursor-pointer"
                       onClick={() => handlePageChange(currentPage - 1)}
                     >
-                      <span className="px-3 border-x-2">قبلی</span>
+                      <span className="px-3 ">قبلی</span>
                     </li>
                   )}
 
-                  {/* Current Page Number */}
+                  
                   <li className="bg-violet-200">
-                    <span className="px-3 border-x-2">{currentPage}</span>
+                    <span className="px-3 ">{currentPage}</span>
                   </li>
 
-                  {/* Next Button */}
+                  
                   {currentPage < products.total_pages && (
                     <li
                       className="cursor-pointer"
                       onClick={() => handlePageChange(currentPage + 1)}
                     >
-                      <span className="px-3 border-x-2">بعدی</span>
+                      <span className="px-3 ">بعدی</span>
                     </li>
                   )}
                 </ul>
