@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { errorHandler } from "../../libs/errorHandler";
 import Joi from "joi";
 
-
 interface FormData {
   username: string;
   password: string;
@@ -80,24 +79,22 @@ const AdminLogin: React.FC = () => {
         <div className="w-96 m-auto flex flex-col justify-center items-center shadow p-5">
           <div className="w-full">
             <div className="flex justify-end ">
-            <Link to="/">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
-                />
-              </svg>
-            </Link>
-
-              
+              <Link to="/">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 text-violet-900"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+                  />
+                </svg>
+              </Link>
             </div>
           </div>
 
@@ -105,33 +102,73 @@ const AdminLogin: React.FC = () => {
             <img
               className="h-28 w-28 rounded-full mb-8 "
               src="../../../public/lavender.png"
-              alt="l"
+              alt="lavender"
             />
           </div>
-          <input
-            className="w-80 bg-purple-50 border-none text-gray-900 text-sm rounded-lg focus:ring-purple-50 block p-2"
-            placeholder="نام کاربری"
-            type="text"
-            name="username"
-            onChange={handleChange}
-          />
-          <div className="h-7 ">
-            {errors.username && (
-              <div className="text-red-500 ">{errors.username}</div>
-            )}
+          {/* username input */}
+          <div className="flex  justify-center gap-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6 mt-1 text-violet-900"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            <div className="flex flex-col justify-center items-center">
+            <input
+              className="w-80 bg-purple-50 border-none text-gray-900 text-sm rounded-lg focus:ring-purple-50 block p-2"
+              placeholder="نام کاربری"
+              type="text"
+              name="username"
+              onChange={handleChange}
+            />
+            <div className="h-7 ">
+              {errors.username && (
+                <div className="text-red-500 ">{errors.username}</div>
+              )}
+            </div>
+            </div>
+            
           </div>
-          <input
-            className="w-80 bg-purple-50 border-none text-gray-900 text-sm rounded-lg focus:ring-purple-50 block  p-2 mt-1"
-            type="password"
-            placeholder="رمز عبور"
-            name="password"
-            onChange={handleChange}
-          />
-          <div className="h-7">
-            {errors.password && (
-              <div className="text-red-500 ">{errors.password}</div>
-            )}
+
+          {/* password input */}
+          <div className="flex  justify-center gap-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6 mt-2 text-violet-900"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            <div className="flex flex-col justify-center items-center">
+            <input
+              className="w-80 bg-purple-50 border-none text-gray-900 text-sm rounded-lg focus:ring-purple-50 block  p-2 mt-1"
+              type="password"
+              placeholder="رمز عبور"
+              name="password"
+              onChange={handleChange}
+            />
+            <div className="h-7">
+              {errors.password && (
+                <div className="text-red-500 ">{errors.password}</div>
+              )}
+            </div>
+            </div>
+            
           </div>
+
           <button
             className="w-80 bg-purple-500 text-white rounded-3xl hover:bg-purple-700 focus:outline-none font-medium text-sm px-5 py-2.5 text-center mt-1"
             type="submit"
