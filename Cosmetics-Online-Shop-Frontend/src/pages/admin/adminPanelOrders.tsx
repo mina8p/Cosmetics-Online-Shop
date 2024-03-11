@@ -22,24 +22,34 @@ export interface Order {
   __v: number;
 }
 
-
-
 const AdminPanelOrders = () => {
   const [deliveryFilter, setDeliveryFilter] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const [totalPages] = useState(5);
 
-  const { data: orders, isLoading } = useQuery(["orders", currentPage], () => fetchOrders(currentPage), {
-   
-  });
+  const { data: orders, isLoading } = useQuery(
+    ["orders", currentPage],
+    () => fetchOrders(currentPage),
+    {}
+  );
 
-  if (isLoading) return <p>Loading...</p>;
+/////loading
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    );
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
+  /////Pagination
+  const handleChangingPage = (Page: number) => {
+    setCurrentPage(Page);
   };
 
+  
+
+  /////filtering
   const filteredOrders = orders?.filter((order) => {
     if (deliveryFilter === null) return true;
     return deliveryFilter === "delivered"
@@ -52,14 +62,14 @@ const AdminPanelOrders = () => {
   };
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 font-IRANSans">
-            <div className="sm:flex sm:items-center">
+    <div className="px-4 sm:px-6 lg:px-8 font-IRANSans mb-28">
+      <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
+          <h1 className="text-base font-semibold leading-6 text-purple-800">
             مدیریت سفارش ها
           </h1>
         </div>
-        <div className="filters flex gap-5">
+        <div className="filters flex gap-5 text-purple-800">
           <label>
             سفارش های تحویل شده
             <input
@@ -87,25 +97,25 @@ const AdminPanelOrders = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       نام کاربر
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       مجموع مبلغ
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       زمان ثبت سفارش
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       وضعیت سفارش
                     </th>
@@ -127,7 +137,7 @@ const AdminPanelOrders = () => {
                       />
                     ))
                   ) : (
-                    <p>No orders found.</p>
+                    <p>هیچ سفارشی یافت نشد</p>
                   )}
                 </tbody>
               </table>
@@ -136,16 +146,23 @@ const AdminPanelOrders = () => {
         </div>
       </div>
 
-      <nav className="pagination flex justify-center items-center mt-5 ">
-        <div className="border border-violet-200 w-28 flex justify-center items-center rounded-lg gap-2">
-
-        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage <= 1}>
-          قبلی
-        </button>
-        <span>{currentPage} </span>
-        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage >= totalPages}>
-          بعدی
-        </button>
+      <nav className="pagination flex justify-center items-center mt-5 text-gray-600">
+        <div className="border-2 border-violet-200 w-28 flex justify-center items-center rounded-lg gap-2 ">
+          <button
+            className=""
+            onClick={() => handleChangingPage(currentPage - 1)}
+            disabled={currentPage <= 1}
+          >
+            قبلی
+          </button>
+          <span className="bg-violet-200 px-2">{currentPage} </span>
+          <button
+            className=""
+            onClick={() => handleChangingPage(currentPage + 1)}
+            disabled={currentPage >= totalPages}
+          >
+            بعدی
+          </button>
         </div>
       </nav>
     </div>
@@ -153,11 +170,6 @@ const AdminPanelOrders = () => {
 };
 
 export default AdminPanelOrders;
-
-
-
-
-
 
 ////////////////////////////////////////////
 // import { useQuery } from "react-query";
@@ -201,14 +213,13 @@ export default AdminPanelOrders;
 //   const {
 //     data: orders,
 //     isLoading,
-    
+
 //   } = useQuery({
 //     queryKey: ["orders"],
 //     queryFn: fetchOrders,
 //   });
 
 //   if (isLoading) return <p>Loading...</p>;
-  
 
 //   const filteredOrders = orders?.filter((order) => {
 //     if (deliveryFilter === null) return true;
@@ -223,95 +234,91 @@ export default AdminPanelOrders;
 
 //   return (
 //     <div className="px-4 sm:px-6 lg:px-8 font-IRANSans">
-      // <div className="sm:flex sm:items-center">
-      //   <div className="sm:flex-auto">
-      //     <h1 className="text-base font-semibold leading-6 text-gray-900">
-      //       مدیریت سفارش ها
-      //     </h1>
-      //   </div>
-      //   <div className="filters flex gap-5">
-      //     <label>
-      //       سفارش های تحویل شده
-      //       <input
-      //         type="checkbox"
-      //         checked={deliveryFilter === "delivered"}
-      //         onChange={() => handleFilterChange("delivered")}
-      //       />
-      //     </label>
-      //     <label>
-      //       سفارش های در انتظار ارسال
-      //       <input
-      //         type="checkbox"
-      //         checked={deliveryFilter === "notDelivered"}
-      //         onChange={() => handleFilterChange("notDelivered")}
-      //       />
-      //     </label>
-      //   </div>
-      // </div>
-      // <div className="mt-8 flow-root">
-      //   <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      //     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-      //       <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-      //         <table className="min-w-full divide-y divide-violet-300">
-      //           <thead className="bg-gray-50">
-      //             <tr>
-      //               <th
-      //                 scope="col"
-      //                 className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-      //               >
-      //                 نام کاربر
-      //               </th>
-      //               <th
-      //                 scope="col"
-      //                 className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-      //               >
-      //                 مجموع مبلغ
-      //               </th>
-      //               <th
-      //                 scope="col"
-      //                 className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-      //               >
-      //                 زمان ثبت سفارش
-      //               </th>
-      //               <th
-      //                 scope="col"
-      //                 className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-      //               >
-      //                 وضعیت سفارش
-      //               </th>
-      //             </tr>
-      //           </thead>
-      //           <tbody className="divide-y divide-gray-200 bg-white">
-      //             {filteredOrders && filteredOrders.length > 0 ? (
-      //               filteredOrders.map((order: Order) => (
-      //                 <OrdersTable
-      //                   _id={order._id}
-      //                   user={order.user}
-      //                   products={[]}
-      //                   totalPrice={order.totalPrice}
-      //                   deliveryDate={order.deliveryDate}
-      //                   deliveryStatus={order.deliveryStatus}
-      //                   createdAt={order.createdAt}
-      //                   updatedAt={""}
-      //                   __v={0}
-      //                 />
-      //               ))
-      //             ) : (
-      //               <p>No orders found.</p>
-      //             )}
-      //           </tbody>
-      //         </table>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
+// <div className="sm:flex sm:items-center">
+//   <div className="sm:flex-auto">
+//     <h1 className="text-base font-semibold leading-6 text-gray-900">
+//       مدیریت سفارش ها
+//     </h1>
+//   </div>
+//   <div className="filters flex gap-5">
+//     <label>
+//       سفارش های تحویل شده
+//       <input
+//         type="checkbox"
+//         checked={deliveryFilter === "delivered"}
+//         onChange={() => handleFilterChange("delivered")}
+//       />
+//     </label>
+//     <label>
+//       سفارش های در انتظار ارسال
+//       <input
+//         type="checkbox"
+//         checked={deliveryFilter === "notDelivered"}
+//         onChange={() => handleFilterChange("notDelivered")}
+//       />
+//     </label>
+//   </div>
+// </div>
+// <div className="mt-8 flow-root">
+//   <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+//     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+//       <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+//         <table className="min-w-full divide-y divide-violet-300">
+//           <thead className="bg-gray-50">
+//             <tr>
+//               <th
+//                 scope="col"
+//                 className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+//               >
+//                 نام کاربر
+//               </th>
+//               <th
+//                 scope="col"
+//                 className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+//               >
+//                 مجموع مبلغ
+//               </th>
+//               <th
+//                 scope="col"
+//                 className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+//               >
+//                 زمان ثبت سفارش
+//               </th>
+//               <th
+//                 scope="col"
+//                 className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+//               >
+//                 وضعیت سفارش
+//               </th>
+//             </tr>
+//           </thead>
+//           <tbody className="divide-y divide-gray-200 bg-white">
+//             {filteredOrders && filteredOrders.length > 0 ? (
+//               filteredOrders.map((order: Order) => (
+//                 <OrdersTable
+//                   _id={order._id}
+//                   user={order.user}
+//                   products={[]}
+//                   totalPrice={order.totalPrice}
+//                   deliveryDate={order.deliveryDate}
+//                   deliveryStatus={order.deliveryStatus}
+//                   createdAt={order.createdAt}
+//                   updatedAt={""}
+//                   __v={0}
+//                 />
+//               ))
+//             ) : (
+//               <p>No orders found.</p>
+//             )}
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//   </div>
+// </div>
 //     </div>
 //   );
 // };
 
 // export default AdminPanelOrders;
 /////
-
-
-
-

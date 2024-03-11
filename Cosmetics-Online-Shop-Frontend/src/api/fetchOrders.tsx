@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Order } from "../pages/admin/adminPanelOrders";
 
-export const fetchOrders = async (currentPage = 1): Promise<Order[]> => {
+export const fetchOrders = async (currentPage :number): Promise<Order[]> => {
   const accessToken = localStorage.getItem("accessToken");
   const response = await axios.get(
     `http://localhost:8000/api/orders?page=${currentPage}`,
@@ -11,6 +11,6 @@ export const fetchOrders = async (currentPage = 1): Promise<Order[]> => {
       },
     }
   );
-  console.log("API Response:", response.data);
+  
   return response.data.data.orders;
 };

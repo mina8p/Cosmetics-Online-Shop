@@ -20,7 +20,7 @@ const AdminLogin: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const navigate = useNavigate();
 
-  // Joi schema for form validation
+  //form validation
   const schema = Joi.object({
     username: Joi.string().required().min(4).max(20).messages({
       "string.empty": "لطفا نام کاربری خود را وارد کنید",

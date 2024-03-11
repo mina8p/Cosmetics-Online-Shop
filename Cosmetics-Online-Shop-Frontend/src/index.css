@@ -4,26 +4,36 @@
 
 @font-face{
     font-family:peyda;
+  font-display: block;
+
     src:url("./src/assets/font-peyda/PeydaWeb-Black.woff2");
     font-weight:900;
 }
 @font-face{
     font-family:peyda;
+  font-display: block;
+
     src:url("./src/assets/font-peyda/PeydaWeb-Bold.woff2");
     font-weight:700;
 }
 @font-face{
     font-family:peyda;
+  font-display: block;
+
     src:url("./src/assets/font-peyda/PeydaWeb-SemiBold.woff2");
     font-weight:600;
 }
 @font-face{
     font-family:peyda;
+  font-display: block;
+
     src:url("./src/assets/font-peyda/PeydaWeb-Medium.woff2");
     font-weight:500;
 }
 @font-face{
     font-family:peyda;
+  font-display: block;
+
     src:url("./src/assets/font-peyda/PeydaWeb-Regular.woff2");
     font-weight:400;
 }
@@ -33,6 +43,7 @@
 @font-face {
   font-family: IRANSans;
   font-style: normal;
+  font-display: block;
   font-weight: 900;
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_Black.eot');
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_Black.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
@@ -43,6 +54,8 @@
 @font-face {
   font-family: IRANSans;
   font-style: normal;
+  font-display: block;
+
   font-weight: bold;
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_Bold.eot');
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
@@ -53,6 +66,8 @@
 @font-face {
   font-family: IRANSans;
   font-style: normal;
+  font-display: block;
+
   font-weight: 500;
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_Medium.eot');
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
@@ -63,6 +78,8 @@
 @font-face {
   font-family: IRANSans;
   font-style: normal;
+  font-display: block;
+
   font-weight: 300;
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_Light.eot');
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
@@ -73,6 +90,8 @@
 @font-face {
   font-family: IRANSans;
   font-style: normal;
+  font-display: block;
+
   font-weight: 200;
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_UltraLight.eot');
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum)_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
@@ -83,6 +102,8 @@
 @font-face {
   font-family: IRANSans;
   font-style: normal;
+  font-display: block;
+
   font-weight: normal;
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum).eot');
   src: url('./src/assets/font-IRANSans/eot/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'),  /* IE6-8 */

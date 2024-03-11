@@ -18,16 +18,16 @@ export default function OrdersTable({
 
   return (
     <tr key={_id}>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
         {userIdData?.data?.user?.firstname} {userIdData?.data?.user?.lastname}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
-        {totalPrice}
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
+        {totalPrice}{"   تومان"}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
         {solarCalendarCreatedAt}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
         <button>بررسی سفارش</button>
         {/* {deliveryStatus ? "Delivered" : "Not Delivered"} */}
       </td>

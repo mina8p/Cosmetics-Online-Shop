@@ -14,7 +14,4 @@ export const fetchuserById = async (id: string) => {
   );
 
   return response.data;
-  
 };
-
-

@@ -16,27 +16,27 @@ export default function Header() {
             </Link>
             
           </div>
-          <div className="flex flex-col  justify-center mr-2">
-            <p className="text-2xl font-bold text-purple-800">
+          <div className="flex flex-col  justify-center mr-2 ">
+            <p className=" font-bold text-purple-800 text-sm md:text-2xl">
               <Link to="/">لوندر</Link>
             </p>
-            <p className="text-purple-800 text-sm">
+            <p className="text-purple-800   text-xs md:text-sm">
               <Link to="/">فروشگاه آنلاین لوازم آرایشی</Link>
             </p>
           </div>
         </div>
-        <div className="mr-5 hover:text-purple-600">محصولات</div>
-        <div className="mr-5 hover:text-purple-600">برند ها</div>
+        {/* //////////////
+        ////////////// */}
       </div>
       <div className="flex ">
-        <div className="mr-5 flex flex-col justify-center items-center font-bold hover:text-purple-600">
+        <div className="mr-5 flex flex-col justify-center items-center font-bold hover:text-purple-600 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 text-xs md:text-base"
           >
             <path
               stroke-linecap="round"
@@ -45,7 +45,7 @@ export default function Header() {
             />
           </svg>
 
-          <Link to="/adminLogin">پنل مدیریت</Link>
+          <Link className="text-xs md:text-base" to="/adminLogin">پنل مدیریت</Link>
         </div>
         <div className="flex flex-col justify-center items-center font-bold hover:text-purple-600 mr-5">
           <svg
@@ -54,7 +54,7 @@ export default function Header() {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 text-xs md:text-base"
           >
             <path
               stroke-linecap="round"
@@ -63,7 +63,7 @@ export default function Header() {
             />
           </svg>
 
-          <Link to="/cart">سبد خرید</Link>
+          <Link className="text-xs md:text-base" to="/cart">سبد خرید</Link>
         </div>
       </div>
     </div>
@@ -71,4 +71,5 @@ export default function Header() {
 }
 
 ///////////
-
+{/* <div className="mr-5 hover:text-purple-600">محصولات</div>
+        <div className="mr-5 hover:text-purple-600">برند ها</div> */}

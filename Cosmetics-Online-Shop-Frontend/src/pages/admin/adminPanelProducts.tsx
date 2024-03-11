@@ -18,24 +18,31 @@ export interface Product {
 
 const AdminPanelProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const {
-    data: products,
-
-    isLoading,
-  } = useQuery(["products", currentPage], () => fetchProducts(currentPage));
+  const { data: products, isLoading } = useQuery(
+    ["products", currentPage],
+    () => fetchProducts(currentPage)
+  );
 
   console.log(products);
-  if (isLoading) return <div>Loading...</div>;
 
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+  /////loading
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    );
+
+  /////Pagination
+  const handleChangingPage = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 font-IRANSans">
+    <div className="px-4 sm:px-6 lg:px-8 font-IRANSans mb-28">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
+          <h1 className="text-base font-semibold leading-6 text-purple-800">
             مدیریت محصولات
           </h1>
         </div>
@@ -57,31 +64,31 @@ const AdminPanelProducts = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       تصویر
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       نام کالا
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       دسته بندی
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       ویرایش کالا
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
                     >
                       حذف کالا
                     </th>
@@ -109,32 +116,28 @@ const AdminPanelProducts = () => {
         </div>
       </div>
       {products?.total_pages > 1 && (
-        <nav className="flex justify-center m-8">
+        <nav className="flex justify-center m-2 text-gray-600">
           <ul className="rounded-lg flex overflow-hidden">
-            
             {products?.total_pages > 1 && (
               <nav className="flex justify-center m-8">
                 <ul className="border-2 border-violet-200 rounded-lg flex">
-                  
                   {currentPage > 1 && (
                     <li
                       className="cursor-pointer"
-                      onClick={() => handlePageChange(currentPage - 1)}
+                      onClick={() => handleChangingPage(currentPage - 1)}
                     >
                       <span className="px-3 ">قبلی</span>
                     </li>
                   )}
 
-                  
                   <li className="bg-violet-200">
                     <span className="px-3 ">{currentPage}</span>
                   </li>
 
-                  
                   {currentPage < products.total_pages && (
                     <li
                       className="cursor-pointer"
-                      onClick={() => handlePageChange(currentPage + 1)}
+                      onClick={() => handleChangingPage(currentPage + 1)}
                     >
                       <span className="px-3 ">بعدی</span>
                     </li>

@@ -19,17 +19,17 @@ export default function PriceTable({
 
   return (
     <tr key={_id}>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 ">
         <img
           src={`http://localhost:8000/images/products/thumbnails/${thumbnail}`}
           alt={name}
           className="w-40  object-contain m-auto"
         />
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
         {name}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
         
 
         <p className="font-IRANSans">
@@ -37,11 +37,11 @@ export default function PriceTable({
           {subCategoryData?.data?.subcategory?.name}
         </p>
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
-        {price}
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
+        {price}{"   تومان"}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
-        {quantity}
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
+        {quantity}{"   عدد"}
       </td>
     </tr>
   );
