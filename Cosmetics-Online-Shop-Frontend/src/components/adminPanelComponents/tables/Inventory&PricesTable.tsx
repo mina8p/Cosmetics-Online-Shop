@@ -1,6 +1,5 @@
 import { Product } from "../../../pages/admin/adminPanelProducts";
-import { useQuery } from "react-query";
-import { fetchsubcategoryProducts } from "../../../api/fetchsubcategorybyid";
+
 
 export default function PriceTable({
   _id,
@@ -8,13 +7,10 @@ export default function PriceTable({
   thumbnail,
   price,
   quantity,
-  subcategory,
+  
 }: Product) {
   //////////////////////
-  const { data: subCategoryData } = useQuery([`subCategoryId`], () =>
-    fetchsubcategoryProducts(subcategory)
-  );
-  console.log(subCategoryData);
+ 
   //////////////////////
 
   return (
@@ -29,14 +25,7 @@ export default function PriceTable({
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
         {name}
       </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
-        
-
-        <p className="font-IRANSans">
-          {subCategoryData?.data?.subcategory?.category?.name}/
-          {subCategoryData?.data?.subcategory?.name}
-        </p>
-      </td>
+      
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
         {price}{"   تومان"}
       </td>
@@ -46,3 +35,26 @@ export default function PriceTable({
     </tr>
   );
 }
+
+
+
+
+/////////////////
+
+// import { useQuery } from "react-query";
+// import { fetchsubcategoryProducts } from "../../../api/fetchsubcategorybyid";
+
+// const { data: subCategoryData } = useQuery([`subCategoryId`], () =>
+// fetchsubcategoryProducts(subcategory)
+// );
+// console.log(subCategoryData);
+
+
+{/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
+        
+
+        <p className="font-IRANSans">
+          {subCategoryData?.data?.subcategory?.category?.name}/
+          {subCategoryData?.data?.subcategory?.name}
+        </p>
+      </td> */}

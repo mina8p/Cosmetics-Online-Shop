@@ -70,12 +70,7 @@ const AdminPanelPrices = () => {
                     >
                       نام کالا
                     </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
-                    >
-                      دسته بندی
-                    </th>
+                    
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"

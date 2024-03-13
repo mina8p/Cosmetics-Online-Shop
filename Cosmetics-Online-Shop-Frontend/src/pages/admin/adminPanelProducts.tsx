@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import ProductTable from "../../components/adminPanelComponents/tables/productsTable";
 import { useState } from "react";
 import { fetchProducts } from "../../api/fetchProducts";
+import ModalAddProduct from "../../components/modals/modalAddProduct";
 
 export interface Product {
   _id: string;
@@ -14,7 +15,10 @@ export interface Product {
   description: string;
   thumbnail: string;
   images: string[];
+  [key: string]: any;
 }
+
+
 
 const AdminPanelProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,6 +28,15 @@ const AdminPanelProducts = () => {
   );
 
   console.log(products);
+///////////////
+const [isModalOpen, setIsModalOpen] = useState(false); 
+
+const toggleModal = () => setIsModalOpen(!isModalOpen); 
+
+/////////////////
+
+
+
 
   /////loading
   if (isLoading)
@@ -47,7 +60,10 @@ const AdminPanelProducts = () => {
           </h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
+          <button 
+
+          onClick={toggleModal} 
+
             type="button"
             className="block rounded-md bg-violet-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -101,12 +117,12 @@ const AdminPanelProducts = () => {
                       name={product.name}
                       thumbnail={product.thumbnail}
                       subcategory={product.subcategory}
-                      price={0}
-                      quantity={0}
-                      brand={""}
-                      description={""}
-                      images={[]}
-                      category={""}
+                      price={product.price}
+                      quantity={product.quantity}
+                      brand={product.brand}
+                      description={product.description}
+                      images={product.images}
+                      category={product.category}
                     />
                   ))}
                 </tbody>
@@ -148,6 +164,21 @@ const AdminPanelProducts = () => {
           </ul>
         </nav>
       )}
+
+
+<ModalAddProduct
+        isOpen={isModalOpen}
+        onClose={toggleModal}  
+        onSave={async (productData) => {
+          // تابع برای ذخیره محصول جدید
+          // شما باید منطق افزودن محصول به API را در اینجا قرار دهید و لیست محصولات را به‌روز کنید
+          console.log("Product Data:", productData);
+         
+          toggleModal();
+        }}
+      />
+
+
     </div>
   );
 };

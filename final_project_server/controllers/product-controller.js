@@ -31,7 +31,8 @@ const resizeProductImages = async (productId, files) => {
 			}.jpeg`;
 
 			await sharp(image.buffer)
-				.resize(2000, 1300)
+				// .resize(2000, 1300)
+				.resize(1000, 1000, {fit:'contain',background:'white'}) 
 				.toFormat('jpeg')
 				.jpeg({ quality: 95 })
 				.toFile(
@@ -53,7 +54,8 @@ const resizeProductThumbnail = async (productId, files) => {
 	const thumbnailFilename = `products-${productId}-${Date.now()}.jpeg`;
 
 	await sharp(thumbnail[0].buffer)
-		.resize(1500, 800)
+		// .resize(1500, 800)
+		.resize(1000, 1000, {fit:'contain',background:'white'}) 
 		.toFormat('jpeg')
 		.jpeg({ quality: 95 })
 		.toFile(

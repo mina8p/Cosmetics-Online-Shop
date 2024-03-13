@@ -13,7 +13,10 @@ import FinalizeCart from "../pages/cart/finalizeCart";
 import CartPayment from "../pages/cart/cartPayment";
 import SuccessfulPayment from "../pages/cart/successfulPayment";
 import UnsuccessfulPayment from "../pages/cart/unsuccessfulPayment";
-import Categories from "../pages/categories/categories";
+// import Categorization from "../pages/categorization/categorization";
+import CategorizationPage from "../pages/categorization/categorization";
+import SubcategorizationPage from "../pages/categorization/Subcategorization";
+import ProductPage from "../pages/categorization/productPage";
 
 const routes = createBrowserRouter([
   {
@@ -24,13 +27,18 @@ const routes = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+     
       {
-        path: "/adminLogin",
-        element: <AdminLogin />,
+        path: "/categorization/:categoryId",
+        element: <CategorizationPage />,
       },
       {
-        path: "/Categories",
-        element: <Categories />,
+        path: "/subcategorization/:subcategoryId",
+        element: <SubcategorizationPage />,
+      },
+      {
+        path: "/products/:productId",
+        element: <ProductPage />,
       },
       {
         path: "/singlePageProduct",
@@ -67,6 +75,10 @@ const routes = createBrowserRouter([
       },
     ],
     errorElement: <NotFound />,
+  },
+  {
+    path: "/adminLogin",
+    element: <AdminLogin />,
   },
   //*************//
   //Admin-Panel

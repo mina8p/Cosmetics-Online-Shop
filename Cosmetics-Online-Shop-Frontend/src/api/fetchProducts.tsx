@@ -8,8 +8,10 @@ export const fetchProducts = async (page: number) => {
     },
   };
   const response = await axios.get(
-    `http://localhost:8000/api/products?page=${page}&limit=4&fields=-rating,-createdAt,-updatedAt,-__v&sort=price&quantity[gte]=8`,
+    `http://localhost:8000/api/products?page=${page}&limit=5&fields=-rating,-createdAt,-updatedAt,-__v&sort=price`,
     config
   );
   return response.data;
 };
+
+
