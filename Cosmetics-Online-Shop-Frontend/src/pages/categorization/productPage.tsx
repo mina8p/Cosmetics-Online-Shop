@@ -49,7 +49,7 @@ const ProductPage = () => {
   return (
     <div>
       <h2>{product.name}</h2>
-      <img src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} alt={product.name} />
+      <img className='w-60 h-60' src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} alt={product.name} />
       <p>Price: {product.price}</p>
       <p>Quantity: {product.quantity}</p>
       <p>Brand: {product.brand}</p>

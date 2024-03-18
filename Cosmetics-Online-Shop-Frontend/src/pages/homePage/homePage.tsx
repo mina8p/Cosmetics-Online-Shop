@@ -2,10 +2,7 @@
 // import Categories from "./categories";
 // import SubCategories from "./subcategories";
 
-
-
 // export default function HomePage() {
-  
 
 //   return (
 //     <div>
@@ -21,31 +18,121 @@
 
 //////
 
+// import { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+// import { GetAllProducts } from "../../api/getAllProducts";
+// import { GetAllCategories } from "../../api/getAllCategories";
+// import { Product } from "../admin/adminPanelProducts";
+// import { Category } from "./categories";
 
+// const HomePage = () => {
+//   const [products, setProducts] = useState([]);
+//   const [categories, setCategories] = useState([]);
 
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { GetAllProducts } from '../../api/getAllProducts';
-import { GetAllCategories } from '../../api/getAllCategories';
-import { Product } from '../admin/adminPanelProducts';
-import { Category } from './categories';
+//   useEffect(() => {
+//     // بارگیری همه محصولات
+//     const loadProducts = async () => {
+//       try {
+//         const productsData = await GetAllProducts(1); // صفحه 1
+//         setProducts(productsData.data.products);
+//       } catch (error) {
+//         console.error("Error fetching products:", error);
+//       }
+//     };
 
-const HomePage = () => {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+//     // بارگیری همه دسته‌بندی‌ها
+//     const loadCategories = async () => {
+//       try {
+//         const categoriesData = await GetAllCategories();
+//         setCategories(categoriesData.categories);
+//       } catch (error) {
+//         console.error("Error fetching categories:", error);
+//       }
+//     };
+
+//     loadProducts();
+//     loadCategories();
+//   }, []);
+
+//   const renderCategoryProducts = (categoryId: string) => {
+//     const categoryProducts = products
+//       .filter((product: Product) => product.category === categoryId)
+//       .slice(0, 6);
+
+//     return categoryProducts.map((product: Product) => (
+//       <div className="flex">
+//         <div key={product._id} className="product-item ">
+//           <img
+//             className="w-20 h-20"
+//             src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
+//             alt={product.name}
+//           />
+//           <h3>{product.name}</h3>
+//           <p>Price: {product.price}</p>
+
+//           <Link to={`/products/${product._id}`}>View Product</Link>
+//         </div>
+//       </div>
+//     ));
+//   };
+
+//   return (
+//     <div>
+//       {categories.map((category: Category) => (
+//         <div key={category._id}>
+//           <h2>{category.name}</h2>
+//           <div className="products-grid flex">
+//             {renderCategoryProducts(category._id)}
+//           </div>
+
+//           <Link to={`/categorization/${category._id}`}>
+//             See more from {category.name}
+//           </Link>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default HomePage;
+
+////////////////////////
+
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { GetAllProducts } from "../../api/getAllProducts";
+import { GetAllCategories } from "../../api/getAllCategories";
+
+// تعریف رابط برای محصول
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  category: string;
+  thumbnail: string;
+}
+
+// تعریف رابط برای دسته‌بندی
+interface Category {
+  _id: string;
+  name: string;
+  icon: string;
+}
+
+const HomePage: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    // بارگیری همه محصولات
     const loadProducts = async () => {
       try {
-        const productsData = await GetAllProducts(1); // صفحه 1
+        const productsData = await GetAllProducts(1); // Assuming this is a paginated API
         setProducts(productsData.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
 
-    // بارگیری همه دسته‌بندی‌ها
     const loadCategories = async () => {
       try {
         const categoriesData = await GetAllCategories();
@@ -59,32 +146,66 @@ const HomePage = () => {
     loadCategories();
   }, []);
 
-  
-  const renderCategoryProducts = (categoryId: string) => {
-    
-    const categoryProducts = products.filter((product : Product) => product.category === categoryId).slice(0, 6);
+  // تابع کمکی برای کوتاه کردن نام محصول
+  const shortenProductName = (name: string): string => {
+    const words = name.split(" ");
+    return words.length > 10 ? `${words.slice(0, 10).join(" ")}...` : name;
+  };
 
-    return categoryProducts.map((product : Product) => (
-      <div className='flex'>
-      <div key={product._id} className="product-item ">
-        <img className='w-20 h-20' src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} alt={product.name} />
-        <h3>{product.name}</h3>
-        <p>Price: {product.price}</p>
-        
-        <Link to={`/products/${product._id}`}>View Product</Link>
-      </div>
+  // رندر محصولات بر اساس دسته‌بندی
+  const renderCategoryProducts = (categoryId: string): JSX.Element[] => {
+    const categoryProducts = products
+      .filter((product: Product) => product.category === categoryId)
+      .slice(0, 6); // Displaying only up to 6 products per category
+
+    return categoryProducts.map((product: Product) => (
+      <div className="flex " key={product._id}>
+        <Link to={`/products/${product._id}`}>
+          <div className="product-item shadow shadow-violet-400 rounded-lg w-56 h-72 m-2 flex  justify-center items-center">
+            <div className="">
+              <img
+                className="w-40 h-40 m-auto"
+                src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
+                alt={product.name}
+              />
+              <div className="w-48">
+                <h3>{shortenProductName(product.name)}</h3>
+              </div>
+              <p className="text-left ">
+                {product.price} {"تومان"}
+              </p>
+            </div>
+          </div>
+        </Link>
       </div>
     ));
   };
 
   return (
-    <div>
-      {categories.map((category : Category) => (
+    <div className="">
+      {categories.map((category: Category) => (
         <div key={category._id}>
-          <h2>{category.name}</h2>
-          <div className="products-grid flex">{renderCategoryProducts(category._id)}</div>
-         
-          <Link to={`/categorization/${category._id}`}>See more from {category.name}</Link>
+          <div className="mb-12">
+            <Link className="" to={`/categorization/${category._id}`}>
+              <div className="flex items-center">
+                <img
+                  src={`http://localhost:8000/images/categories/icons/${category.icon}`}
+                  alt={category.name}
+                  className="w-10 h-10 object-cover rounded-full"
+                />
+                {category.name}
+              </div>
+            </Link>
+            {/* <h2>{category.name}</h2> */}
+            <div className="products-grid flex justify-center">
+              {renderCategoryProducts(category._id)}
+            </div>
+            <div className="mt-5">
+              <Link className="" to={`/categorization/${category._id}`}>
+                دیدن همه محصولات {category.name}
+              </Link>
+            </div>
+          </div>
         </div>
       ))}
     </div>
@@ -93,12 +214,7 @@ const HomePage = () => {
 
 export default HomePage;
 
-
-
-
-
 //////////////////
-
 
 // import React, { useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom';
@@ -115,7 +231,7 @@ export default HomePage;
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const productsData = await fetchProducts(1); 
+//         const productsData = await fetchProducts(1);
 //         const subcategoriesData = await GetAllSubcategories();
 //         setProducts(productsData.data.products);
 //         setSubcategories(subcategoriesData.subcategories);
@@ -126,7 +242,6 @@ export default HomePage;
 
 //     fetchData();
 //   }, []);
-
 
 //   const renderSubcategoryProducts = (subcategoryId: any) => {
 
@@ -158,4 +273,3 @@ export default HomePage;
 // };
 
 // export default HomePage;
-

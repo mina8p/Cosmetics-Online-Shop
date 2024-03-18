@@ -7,16 +7,15 @@ import AdminPanelInventoryPrices from "../pages/admin/adminPanelPrices";
 import AdminPanelProducts from "../pages/admin/adminPanelProducts";
 import HomePage from "../pages/homePage/homePage";
 import NotFound from "../pages/notFoundPage/notFoundPage";
-import SinglePageProduct from "../pages/singlePageProduct/singlePageProduct";
 import Cart from "../pages/cart/cart";
 import FinalizeCart from "../pages/cart/finalizeCart";
 import CartPayment from "../pages/cart/cartPayment";
 import SuccessfulPayment from "../pages/cart/successfulPayment";
 import UnsuccessfulPayment from "../pages/cart/unsuccessfulPayment";
-// import Categorization from "../pages/categorization/categorization";
 import CategorizationPage from "../pages/categorization/categorization";
 import SubcategorizationPage from "../pages/categorization/Subcategorization";
 import ProductPage from "../pages/categorization/productPage";
+import ProductsLayout from "../layout/productsLayout/productsLayout";
 
 const routes = createBrowserRouter([
   {
@@ -27,23 +26,12 @@ const routes = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-     
-      {
-        path: "/categorization/:categoryId",
-        element: <CategorizationPage />,
-      },
-      {
-        path: "/subcategorization/:subcategoryId",
-        element: <SubcategorizationPage />,
-      },
+
       {
         path: "/products/:productId",
         element: <ProductPage />,
       },
-      {
-        path: "/singlePageProduct",
-        element: <SinglePageProduct />,
-      },
+
       //*************//
       //Shopping-Cart
       //*************//
@@ -71,11 +59,35 @@ const routes = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound />,
+        // element: <NotFound />,
       },
     ],
-    errorElement: <NotFound />,
+    // errorElement: <NotFound />,
   },
+
+  ///////////////////////////////////////
+  //*************//
+  //products
+  //*************//
+  {
+    path: "/categorization/:categoryId",
+    element: <ProductsLayout />,
+    children: [
+      {
+        index: true,
+        element: <CategorizationPage />,
+      },
+      {
+        path: "subcategorization/:subcategoryId",
+        element: <SubcategorizationPage />,
+      },
+    ],
+  },
+
+  /////////////////////////////////////////
+  //*************//
+  //Admin-Login
+  //*************//
   {
     path: "/adminLogin",
     element: <AdminLogin />,
@@ -93,7 +105,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "adminPanelInventory&Prices",
-        element: <AdminPanelInventoryPrices/>,
+        element: <AdminPanelInventoryPrices />,
       },
       {
         path: "adminPanelProducts",
@@ -101,10 +113,10 @@ const routes = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound />,
+        // element: <NotFound />,
       },
     ],
-    errorElement: <NotFound />,
+    // errorElement: <NotFound />,
   },
 ]);
 

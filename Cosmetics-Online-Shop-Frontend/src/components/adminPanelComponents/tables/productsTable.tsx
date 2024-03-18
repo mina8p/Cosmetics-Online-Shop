@@ -18,7 +18,7 @@ export default function ProductTable({
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
 
-  const { data: priductIdData } = useQuery([`ProductId`, _id], () =>
+  const { data: productIdData } = useQuery([`ProductId`, _id], () =>
     fetchProductById(_id)
   );
 
@@ -61,8 +61,8 @@ export default function ProductTable({
         </td>
         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
           <p className="font-IRANSans">
-            {priductIdData?.data?.product?.category?.name}/
-            {priductIdData?.data?.product?.subcategory?.name}
+            {productIdData?.data?.product?.category?.name}/
+            {productIdData?.data?.product?.subcategory?.name}
           </p>
         </td>
         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
@@ -73,8 +73,8 @@ export default function ProductTable({
                 name,
                 thumbnail,
                 description,
-                category: priductIdData?.data?.product?.category?.name,
-                subcategory: priductIdData?.data?.product?.subcategory?.name,
+                category: productIdData?.data?.product?.category?.name,
+                subcategory: productIdData?.data?.product?.subcategory?.name,
                 price,
                 quantity,
                 brand: "",
@@ -114,7 +114,7 @@ export default function ProductTable({
   );
 }
 
-////////////////////////
+/////////////////////////////////
 // const queryClient = useQueryClient();
 
 // const [showEditModal, setShowEditModal] = useState(false);
@@ -134,3 +134,8 @@ export default function ProductTable({
   /* {subCategoryIdData?.data?.subcategory?.category?.name}/
             {subCategoryIdData?.data?.subcategory?.name} */
 }
+
+//////////////////////////////////////
+
+
+

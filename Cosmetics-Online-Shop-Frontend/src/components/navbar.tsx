@@ -1,114 +1,121 @@
+import { Link } from "react-router-dom";
+import { GetAllCategories } from "../api/getAllCategories";
+import { GetAllSubcategories } from "../api/getAllSubcategories";
+import { useQuery } from "react-query";
 import { useState } from "react";
-import CategoriesWithSubcategories from "../pages/homePage/CategoriesWithSubcategories";
 
-// تعریف نوع برای آیتم‌های منو و وضعیت زیرمنوها
-interface MenuItems {
-  [key: string]: string[];
-}
+type Category = {
+  _id: string;
+  name: string;
+  subcategories?: Subcategory[];
+};
 
-interface OpenSubMenus {
-  [key: string]: boolean;
-}
+type Subcategory = {
+  _id: string;
+  name: string;
+  category: string;
+};
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [openSubMenus, setOpenSubMenus] = useState<OpenSubMenus>({});
+  const [isOpen, setIsOpen] = useState(false);
 
-  const menuItems: MenuItems = {
-    "آرایش چشم": ["ریمل", "خط چشم", "سایه چشم"],
-    "آرایش لب": ["رژلب", "خط لب", "برق لب"],
-    "آرایش صورت": ["کرم پودر", "رژگونه","کانسیلر", "هایلایتر"],
-  };
-  const toggleSubMenu = (item: string) => {
-    // بررسی اینکه آیا منوی مورد نظر در حال حاضر باز است یا خیر
-    const isCurrentlyOpen = openSubMenus[item];
+  const categoriesQuery = useQuery("categories", GetAllCategories);
+  const subcategoriesQuery = useQuery("subcategories", GetAllSubcategories);
 
-    // بستن همه زیرمنوها
-    setOpenSubMenus({});
+  if (categoriesQuery.isLoading || subcategoriesQuery.isLoading) {
+    return <div>Loading...</div>;
+  }
 
-    // اگر منوی مورد نظر در حال حاضر بسته بود، آن را باز کن
-    if (!isCurrentlyOpen) {
-      setOpenSubMenus({ [item]: true });
-    }
-  };
+  if (categoriesQuery.error instanceof Error) {
+    return <div>An error occurred: {categoriesQuery.error.message}</div>;
+  }
 
-  //   const toggleSubMenu = (item: string) => {
-  //     setOpenSubMenus(prev => ({ ...prev, [item]: !prev[item] }));
-  //   };
+  if (subcategoriesQuery.error instanceof Error) {
+    return <div>An error occurred: {subcategoriesQuery.error.message}</div>;
+  }
+
+  const categories = categoriesQuery.data?.categories;
+
+  const categoriesWithSubcategories = categories?.map((category: Category) => ({
+    ...category,
+    subcategories: subcategoriesQuery.data?.subcategories.filter(
+      (subcategory: Subcategory) => subcategory.category === category._id
+    ),
+  }));
 
   return (
-    <div>
-    <nav className="bg-violet-500 text-white">
+    <nav className="bg-violet-800 text-white font-IRANSans">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center">
-          <div>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-white focus:outline-none md:hidden"
-            >
+        <div className="flex justify-between">
+          {/* Hamburger Menu */}
+          <div className="md:hidden flex items-center">
+            <button onClick={() => setIsOpen(!isOpen)}>
               <svg
-                className="h-6 w-6"
+                className="w-6 h-6"
                 fill="none"
-                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16m-7 6h7"
-                ></path>
+                <path d="M4 6h16M4 12h16m-7 6h7"></path>
               </svg>
             </button>
           </div>
         </div>
-        <div className={`md:flex ${isOpen ? "" : "hidden"}`}>
-          {Object.keys(menuItems).map((item) => (
-            <div key={item} className="relative">
-              <button
-                onClick={() => toggleSubMenu(item)}
-                className="py-5 px-3 block hover:text-gray-400 md:hover:text-gray-900 md:px-0"
+      </div>
+      {/* Mobile Menu */}
+      <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
+        {categoriesWithSubcategories?.map((category: Category) => (
+          <div key={category._id} className="px-4 py-2 hover:bg-violet-700">
+            <Link to={`/categorization/${category._id}`}>{category.name}</Link>
+            {category.subcategories?.map((subcategory: Subcategory) => (
+              <div key={subcategory._id} className="pl-4">
+                <Link to={`/subcategorization/${subcategory._id}`}>
+                  {subcategory.name}
+                </Link>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      {/* Desktop Menu */}
+      <div className="hidden md:block">
+        {categoriesWithSubcategories?.map((category: Category) => (
+          <div key={category._id} className="group inline-block">
+            <Link
+              to={`/categorization/${category._id}`}
+              className="py-4 px-6 inline-flex items-center hover:bg-violet-700"
+            >
+              {category.name}
+              <svg
+                className="ml-2 w-4 h-4"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                {item}
-                <svg
-                  className="inline h-4 w-4 ml-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                <path d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </Link>
+            <div className="absolute hidden group-hover:block bg-violet-700">
+              {category.subcategories?.map((subcategory: Subcategory) => (
+                <Link
+                  key={subcategory._id}
+                  to={`/categorization/${category._id}/subcategorization/${subcategory._id}`}
+                  className="block py-2 px-4 hover:bg-violet-600"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
-              </button>
-              {openSubMenus[item] && (
-                <div
-                  className={`md:absolute md:bg-gray-800 md:text-white md:py-2 transition-opacity duration-1000 ease-in-out ${
-                    openSubMenus[item] ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  {menuItems[item].map((subItem) => (
-                    <a
-                      href="#"
-                      key={subItem}
-                      className="block px-4 py-2 hover:bg-gray-700 md:hover:bg-gray-900"
-                    >
-                      {subItem}
-                    </a>
-                  ))}
-                </div>
-              )}
+                  {subcategory.name}
+                </Link>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </nav>
-       <CategoriesWithSubcategories/>
-
-    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const fetchsubcategoryProducts = async (subcategoriesId: string) => {
+export const GetCategoryById = async (CategoryById: string) => {
   const token = localStorage.getItem("accessToken");
 
   const config = {
@@ -9,9 +9,13 @@ export const fetchsubcategoryProducts = async (subcategoriesId: string) => {
     },
   };
   const response = await axios.get(
-    `http://localhost:8000/api/subcategories/${subcategoriesId}`,
+    `http://localhost:8000/api/categories/${CategoryById}`,
     config
   );
 
   return response.data;
 };
+
+/////////////
+
+
