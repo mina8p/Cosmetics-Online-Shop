@@ -44,7 +44,7 @@ const Navbar = () => {
   }));
 
   return (
-    <nav className="bg-violet-800 text-white font-IRANSans">
+    <nav className="bg-violet-800 text-white font-IRANSans z-50 sticky ">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           {/* Hamburger Menu */}
@@ -81,9 +81,9 @@ const Navbar = () => {
         ))}
       </div>
       {/* Desktop Menu */}
-      <div className="hidden md:block">
+      <div className="hidden md:block mr-14">
         {categoriesWithSubcategories?.map((category: Category) => (
-          <div key={category._id} className="group inline-block">
+          <div key={category._id} className="group inline-block ">
             <Link
               to={`/categorization/${category._id}`}
               className="py-4 px-6 inline-flex items-center hover:bg-violet-700"

@@ -7,22 +7,36 @@
 //   }
 
 ///////////
+/////////////////////useEffect
 
-// import  { useEffect, useState } from 'react';
-// import { Link, useParams } from 'react-router-dom';
-// import { GetAllProducts } from '../../api/getAllProducts';
-// import { Product } from '../admin/adminPanelProducts';
-// import Sidebar from '../homePage/sidebar';
+// import { useEffect, useState } from "react";
+// import { Link, useParams } from "react-router-dom";
+// import { GetAllProducts } from "../../api/getAllProducts";
+// import { GetCategoryById } from "../../api/getCategoryById"; // اطمینان حاصل کنید که مسیر درست است
+// import { Product } from "../admin/adminPanelProducts";
 
 // const CategorizationPage = () => {
 //   const { categoryId } = useParams<{ categoryId: string }>();
 //   const [products, setProducts] = useState<Product[]>([]);
+//   const [categoryName, setCategoryName] = useState<string>("");
 
 //   useEffect(() => {
+//     // بارگیری نام دسته‌بندی بر اساس آیدی
+//     const loadCategoryName = async () => {
+//       if (categoryId) {
+//         try {
+//           const categoryData = await GetCategoryById(categoryId);
+//           setCategoryName(categoryData.data.category.name); // تنظیم نام دسته‌بندی
+//         } catch (error) {
+//           console.error("Error fetching category name:", error);
+//         }
+//       }
+//     };
+
+//     // بارگیری همه محصولات مرتبط با دسته‌بندی
 //     const loadAllProducts = async () => {
 //       try {
 //         const allProductsData = await GetAllProducts(1);
-
 //         const filteredProducts = allProductsData.data.products.filter(
 //           (product: Product) => product.category === categoryId
 //         );
@@ -32,21 +46,33 @@
 //       }
 //     };
 
+//     loadCategoryName();
 //     loadAllProducts();
 //   }, [categoryId]);
 
 //   return (
-//     <div>
-//        <Sidebar />
-//       <h1>Products for Category ID: {categoryId}</h1>
-//       <div className="products-grid">
+//     <div className="m-5 w-full flex flex-col">
+//       <div className="text-xl font-bold  mb-6">{`خانه / ${categoryName}`}</div>
+
+//       <div className="grid grid-cols-1  m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 //         {products.map((product) => (
-//           <div key={product._id} className="product-item">
-//             <img className='w-20 h-20' src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} alt={product.name} />
-//             <h3>{product.name}</h3>
-//             <p>Price: {product.price}</p>
-//             <Link to={`/products/${product._id}`}>View Product</Link>
-//           </div>
+//           <Link to={`/products/${product._id}`} className="">
+//             <div className="product-item shadow shadow-violet-400 rounded-lg w-56 h-72 m-2 flex  justify-center items-center">
+//               <div className="">
+//                 <img
+//                   className="w-40 h-40 m-auto"
+//                   src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
+//                   alt={product.name}
+//                 />
+//                 <div className="w-48">
+//                   <h3>{product.name}</h3>
+//                 </div>
+//                 <p className="text-left ">
+//                   {product.price} {"تومان"}
+//                 </p>
+//               </div>
+//             </div>
+//           </Link>
 //         ))}
 //       </div>
 //     </div>
@@ -55,59 +81,48 @@
 
 // export default CategorizationPage;
 
-///////////////
+////////////////////////////////////////
 
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 import { GetAllProducts } from "../../api/getAllProducts";
-import { GetCategoryById } from "../../api/getCategoryById"; // اطمینان حاصل کنید که مسیر درست است
+import { GetCategoryById } from "../../api/getCategoryById";
 import { Product } from "../admin/adminPanelProducts";
 
 const CategorizationPage = () => {
-  const { categoryId } = useParams<{ categoryId: string }>();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categoryName, setCategoryName] = useState<string>("");
+  const { categoryId } = useParams<{ categoryId: string | undefined }>();
+  const [initiated, setInitiated] = useState(false);
 
   useEffect(() => {
-    // بارگیری نام دسته‌بندی بر اساس آیدی
-    const loadCategoryName = async () => {
-      if (categoryId) {
-        try {
-          const categoryData = await GetCategoryById(categoryId);
-          setCategoryName(categoryData.data.category.name); // تنظیم نام دسته‌بندی
-        } catch (error) {
-          console.error("Error fetching category name:", error);
-        }
-      }
-    };
-
-    // بارگیری همه محصولات مرتبط با دسته‌بندی
-    const loadAllProducts = async () => {
-      try {
-        const allProductsData = await GetAllProducts(1);
-        const filteredProducts = allProductsData.data.products.filter(
-          (product: Product) => product.category === categoryId
-        );
-        setProducts(filteredProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    loadCategoryName();
-    loadAllProducts();
+    if (categoryId) {
+      setInitiated(true);
+    }
   }, [categoryId]);
+
+  const { data: categoryName, isSuccess: isCategoryNameSuccess } = useQuery(
+    ["categoryName", categoryId],
+    () => GetCategoryById(categoryId!).then(res => res.data.category.name),
+    { enabled: initiated }
+  );
+
+  const { data: products, isSuccess: isProductsSuccess } = useQuery(
+    ["allProducts", categoryId],
+    () => GetAllProducts(1).then(res => res.data.products.filter((product: Product) => product.category === categoryId)),
+    { enabled: initiated }
+  );
+
+  if (!isCategoryNameSuccess || !isProductsSuccess) return <div>Loading...</div>;
 
   return (
     <div className="m-5 w-full flex flex-col">
-      <div className="text-xl font-bold  mb-6">{`خانه / ${categoryName}`}</div>
-
-      <div className="grid grid-cols-1  m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {products.map((product) => (
-          <Link to={`/products/${product._id}`} className="">
+      <div className="text-xl font-bold mb-6">{`خانه / ${categoryName}`}</div>
+      <div className="grid grid-cols-1 m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {products?.map((product: Product) => (
+          <Link to={`/products/${product._id}`} key={product._id} className="">
             <div className="product-item shadow shadow-violet-400 rounded-lg w-56 h-72 m-2 flex  justify-center items-center">
-              <div className="">
-                <img
+               <div className="">
+                 <img
                   className="w-40 h-40 m-auto"
                   src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
                   alt={product.name}
@@ -128,7 +143,11 @@ const CategorizationPage = () => {
 };
 
 export default CategorizationPage;
+
+
+
 /////////////
+//////////////page
 
 // import { useEffect, useState } from "react";
 // import { Link, useParams, useNavigate } from "react-router-dom";

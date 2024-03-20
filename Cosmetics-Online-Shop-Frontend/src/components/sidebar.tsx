@@ -119,6 +119,7 @@ const Sidebar = () => {
   return (
     <div className="hidden md:visible  md:flex md:flex-col w-full  md:w-64 text-gray-700 bg-violet-50 items-center  flex-shrink-0">
       {categoriesWithSubcategories?.map((category: Category) => (
+        
         <div key={category._id} className="p-4">
           <Link
             to={`/categorization/${category._id}`}
@@ -138,6 +139,7 @@ const Sidebar = () => {
               {category.name}
             </div>
           </Link>
+          
           <ul className="mt-2">
             {category.subcategories?.map((subcategory: Subcategory) => (
               <li key={subcategory._id} className="mt-1">
