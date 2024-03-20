@@ -44,7 +44,7 @@ const Navbar = () => {
   }));
 
   return (
-    <nav className="bg-violet-800 text-white font-IRANSans z-50 sticky ">
+    <nav className="bg-violet-950 text-white font-IRANSans z-50 sticky ">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           {/* Hamburger Menu */}

@@ -40,36 +40,49 @@ export default function Footer() {
       (subcategory: Subcategory) => subcategory.category === category._id
     ),
   }));
+
   return (
-    <footer className="bg-violet-800 text-white p-4">
+    <footer className="bg-violet-950 text-white p-4">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <div className="flex flex-col">
-          <p>دسترسی سریع</p>
-          {categoriesWithSubcategories?.map((category: Category) => (
-            <div key={category._id} className="p-4">
-              <Link
-                to={`/categorization/${category._id}`}
-                className={`text-lg font-semibold `}
-              >
-                <div className="flex items-center">
-                  {/* <img
-                  src={`http://localhost:8000/images/categories/icons/${category.icon}`}
-                  alt={category.name}
-                  className="w-10 h-10 object-cover rounded-full"
-                /> */}
-                  {category.name}
-                </div>
+        <div className="flex gap-24 m-auto">
+          <div className="flex flex-col">
+            <p>دسترسی سریع</p>
+            {categoriesWithSubcategories?.map((category: Category) => (
+              <div key={category._id} className="p-1">
+                <Link
+                  to={`/categorization/${category._id}`}
+                  className={`text-sm `}
+                >
+                  <div className="flex items-center">{category.name}</div>
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col">
+            <p> درباره لوندر</p>
+
+            <div className="p-1 ">
+              <Link to={``} className={`text-sm `}>
+                <div className="flex items-center mb-1">درباره ما</div>
+              </Link>
+              <Link to={``} className={`text-sm `}>
+                <div className="flex items-center">تماس با ما</div>
               </Link>
             </div>
-          ))}
+          </div>
         </div>
-        <div className="flex mt-4 md:mt-0">
+
+        <div className="flex m-auto mt-4 md:mt-0 ">
           <p>ارتباط با ما</p>
-          {/* <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="mr-4">
+          {/* <a href=""  className="mr-4">
+          
+            <img src="../../public/instagram.png" alt="instagram" className="h-6 w-6" />
+          </a>
+          <a href=""  className="mr-4">
           
             <img src="/" alt="Twitter" className="h-6 w-6" />
-          </a> */}
-          {/* ... more social icons */}
+          </a>
+          */}
         </div>
       </div>
       <div className="text-center text-sm mt-4 ">

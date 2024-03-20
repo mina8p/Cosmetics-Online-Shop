@@ -118,7 +118,7 @@ const ProductPage = () => {
 
       <div
         id=""
-        className="w-full  shadow border border-violet-400  space-y-2  p-10"
+        className="w-full  shadow border border-violet-400  space-y-2  p-10 mb-5"
       >
         <h2>توضیحات محصول</h2>
         <h2>{product.name}</h2>
