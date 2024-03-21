@@ -78,7 +78,7 @@ const ProductPage = () => {
     adaptiveHeight: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    // rtl: true,
+    rtl: true,
   };
   //////////////////////
   return (

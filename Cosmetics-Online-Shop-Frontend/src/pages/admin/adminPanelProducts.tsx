@@ -18,8 +18,6 @@ export interface Product {
   [key: string]: any;
 }
 
-
-
 const AdminPanelProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: products, isLoading } = useQuery(
@@ -28,15 +26,12 @@ const AdminPanelProducts = () => {
   );
 
   console.log(products);
-///////////////
-const [isModalOpen, setIsModalOpen] = useState(false); 
+  ///////////////
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const toggleModal = () => setIsModalOpen(!isModalOpen); 
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-/////////////////
-
-
-
+  /////////////////
 
   /////loading
   if (isLoading)
@@ -60,10 +55,8 @@ const toggleModal = () => setIsModalOpen(!isModalOpen);
           </h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button 
-
-          onClick={toggleModal} 
-
+          <button
+            onClick={toggleModal}
             type="button"
             className="block rounded-md bg-violet-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -165,20 +158,15 @@ const toggleModal = () => setIsModalOpen(!isModalOpen);
         </nav>
       )}
 
-
-<ModalAddProduct
+      <ModalAddProduct
         isOpen={isModalOpen}
-        onClose={toggleModal}  
+        onClose={toggleModal}
         onSave={async (productData) => {
-          // تابع برای ذخیره محصول جدید
-          // شما باید منطق افزودن محصول به API را در اینجا قرار دهید و لیست محصولات را به‌روز کنید
           console.log("Product Data:", productData);
-         
+
           toggleModal();
         }}
       />
-
-
     </div>
   );
 };

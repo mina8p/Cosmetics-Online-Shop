@@ -8,6 +8,7 @@ export default function OrdersTable({
   createdAt,
   totalPrice,
   user,
+  deliveryStatus,
   
 }: Order) {
   //////////////////////
@@ -29,7 +30,7 @@ export default function OrdersTable({
       </td>
       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
         <button>بررسی سفارش</button>
-        {/* {deliveryStatus ? "Delivered" : "Not Delivered"} */}
+        {deliveryStatus ? "Delivered" : "Not Delivered"}
       </td>
     </tr>
   );
