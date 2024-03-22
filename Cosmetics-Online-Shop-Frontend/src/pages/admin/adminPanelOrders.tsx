@@ -2,14 +2,13 @@ import { useQuery } from "react-query";
 import { useState } from "react";
 import OrdersTable from "../../components/adminPanelComponents/tables/ordersTable";
 import { fetchOrders } from "../../api/fetchOrders";
-// import { User } from "../../components/modals/modalOrderDetails";
 
 
 
 export interface Order {
   _id: string;
   user: string;
-  // user: User;
+
   products: {
     product: {
       name: string | undefined;

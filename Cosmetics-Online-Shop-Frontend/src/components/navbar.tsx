@@ -68,10 +68,10 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
         {categoriesWithSubcategories?.map((category: Category) => (
-          <div key={category._id} className="px-4 py-2 hover:bg-violet-700">
+          <div key={category._id} className="px-4 py-2 hover:bg-violet-900">
             <Link to={`/categorization/${category._id}`}>{category.name}</Link>
             {category.subcategories?.map((subcategory: Subcategory) => (
-              <div key={subcategory._id} className="pl-4">
+              <div key={subcategory._id} className="pl-4 hover:bg-violet-800">
                 <Link to={`/subcategorization/${subcategory._id}`}>
                   {subcategory.name}
                 </Link>
@@ -86,7 +86,7 @@ const Navbar = () => {
           <div key={category._id} className="group inline-block ">
             <Link
               to={`/categorization/${category._id}`}
-              className="py-4 px-6 inline-flex items-center hover:bg-violet-700"
+              className="py-4 px-6 inline-flex items-center hover:bg-violet-900"
             >
               {category.name}
               <svg
@@ -101,12 +101,12 @@ const Navbar = () => {
                 <path d="M19 9l-7 7-7-7"></path>
               </svg>
             </Link>
-            <div className="absolute hidden group-hover:block bg-violet-700">
+            <div className="absolute hidden group-hover:block bg-violet-900">
               {category.subcategories?.map((subcategory: Subcategory) => (
                 <Link
                   key={subcategory._id}
                   to={`/categorization/${category._id}/subcategorization/${subcategory._id}`}
-                  className="block py-2 px-4 hover:bg-violet-600"
+                  className="block py-2 px-4 hover:bg-violet-800"
                 >
                   {subcategory.name}
                 </Link>

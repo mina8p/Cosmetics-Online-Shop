@@ -223,7 +223,23 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({ isOpen, onClos
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-5 rounded-lg">
+      <div className="bg-white p-5 rounded-lg relative">
+      <button type="button" onClick={onClose} className="absolute top-0 left-4 mt-4 mr-4 text-gray-700 hover:text-gray-900 transition ease-in-out duration-150">
+      <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+             </button>
         <h2 className="text-xl mb-4">افزودن محصول جدید</h2>
         <form onSubmit={handleSubmit}>
           {/* Input fields for product information */}
@@ -254,11 +270,9 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({ isOpen, onClos
             <input type="file" id="images" name="images" multiple onChange={handleChange} className="border p-2 w-full" />
           </div>
           {/* Submit button */}
-          <div className="flex justify-between">
-             <button type="button" onClick={onClose} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
-               بستن
-             </button>
-             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r">
+          <div className="flex justify-center">
+             
+             <button type="submit" className="bg-violet-800 hover:bg-violet-900 text-white font-bold py-2 px-4 rounded">
                ذخیره
              </button>
            </div>

@@ -17,8 +17,28 @@ export const ModalEditProduct: React.FC<EditProductModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="modal fixed inset-0 z-50 overflow-auto bg-stone-800 bg-opacity-50 flex font-IRANSans">
+    <div className="modal fixed inset-0 z-50 overflow-auto bg-stone-800 bg-opacity-50 flex">
       <div className="modal-content relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg shadow">
+        <button
+          className="absolute top-0 left-4 mt-4 mr-4 text-gray-700 hover:text-gray-900 transition ease-in-out duration-150"
+          onClick={onClose}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
         <Formik
           initialValues={product}
           onSubmit={(values, { setSubmitting }) => {
@@ -36,14 +56,18 @@ export const ModalEditProduct: React.FC<EditProductModalProps> = ({
               <Field name="category" type="string" />
               <Field name="subcategory" type="string" />
               <Field name="description" as="textarea" />
-              
-              <button type="submit" disabled={isSubmitting}>
-                ذخیره
-              </button>
+              <div className="flex justify-center">
+                <button
+                  className="w-20 bg-violet-800 hover:bg-violet-900 text-white font-bold py-2 px-4 rounded"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  ذخیره
+                </button>
+              </div>
             </Form>
           )}
         </Formik>
-        <button onClick={onClose}>لغو</button>
       </div>
     </div>
   );
