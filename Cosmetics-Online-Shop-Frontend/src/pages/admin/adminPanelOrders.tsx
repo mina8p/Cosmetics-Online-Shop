@@ -2,18 +2,25 @@ import { useQuery } from "react-query";
 import { useState } from "react";
 import OrdersTable from "../../components/adminPanelComponents/tables/ordersTable";
 import { fetchOrders } from "../../api/fetchOrders";
+// import { User } from "../../components/modals/modalOrderDetails";
+
+
 
 export interface Order {
   _id: string;
   user: string;
+  // user: User;
   products: {
     product: {
+      name: string | undefined;
+      thumbnail: any;
       _id: string;
       price: number;
     };
     count: number;
     _id: string;
   }[];
+  
   totalPrice: number;
   deliveryDate: string;
   deliveryStatus: boolean;
@@ -21,9 +28,6 @@ export interface Order {
   updatedAt: string;
   __v: number;
 }
-
-
-
 
 const AdminPanelOrders = () => {
   const [deliveryFilter, setDeliveryFilter] = useState<string | null>(null);
@@ -36,10 +40,6 @@ const AdminPanelOrders = () => {
   );
   console.log(orders);
 
-
-
-  
- 
   /////loading
   if (isLoading)
     return (
@@ -60,9 +60,6 @@ const AdminPanelOrders = () => {
       ? order.deliveryStatus
       : !order.deliveryStatus;
   });
-
-
-
 
   const handleFilterChange = (filter: string | null) => {
     setDeliveryFilter((prevFilter) => (prevFilter === filter ? null : filter));
@@ -126,6 +123,12 @@ const AdminPanelOrders = () => {
                     >
                       وضعیت سفارش
                     </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-purple-800"
+                    >
+                      بررسی سفارش ها
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
@@ -140,8 +143,7 @@ const AdminPanelOrders = () => {
                         deliveryStatus={order.deliveryStatus}
                         createdAt={order.createdAt}
                         updatedAt={""}
-                        __v={0}
-                      />
+                        __v={0}                      />
                     ))
                   ) : (
                     <p>هیچ سفارشی یافت نشد</p>
