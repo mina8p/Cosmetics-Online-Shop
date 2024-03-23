@@ -9,7 +9,6 @@
 //   lastname: string;
 //   address: string;
 //   phoneNumber: string;
- 
 // }
 
 // interface OrderDetailsModalProps {
@@ -45,14 +44,25 @@
 //   return (
 //     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
 //       <div className="bg-white p-5 rounded-lg shadow-lg relative">
-//       <button
-//         className="absolute top-0 left-4 mt-4 mr-4 text-gray-700 hover:text-gray-900 transition ease-in-out duration-150"
-//         onClick={onClose}
-//       >
-//         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-//           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-//         </svg>
-//       </button>
+//         <button
+//           className="absolute top-0 left-4 mt-4 mr-4 text-gray-700 hover:text-gray-900 transition ease-in-out duration-150"
+//           onClick={onClose}
+//         >
+//           <svg
+//             xmlns="http://www.w3.org/2000/svg"
+//             fill="none"
+//             viewBox="0 0 24 24"
+//             strokeWidth="1.5"
+//             stroke="currentColor"
+//             className="w-6 h-6"
+//           >
+//             <path
+//               strokeLinecap="round"
+//               strokeLinejoin="round"
+//               d="M6 18L18 6M6 6l12 12"
+//             />
+//           </svg>
+//         </button>
 //         {orderDetails ? (
 //           <>
 //             <h2 className="text-lg font-bold mb-4">جزئیات سفارش</h2>
@@ -82,6 +92,11 @@
 //               <strong> تاریخ سفارش:</strong>{" "}
 //               {formatDateToJalali(orderDetails.createdAt)}
 //             </p>
+//             <p>
+//               <strong> تاریخ تحویل:</strong>{" "}
+//               {formatDateToJalali(orderDetails.deliveryDate)}
+//             </p>
+
 //             <p>
 //               <strong>وضعیت سفارش:</strong>{" "}
 //               {orderDetails.deliveryStatus
@@ -140,13 +155,12 @@
 //                 </tbody>
 //               </table>
 //             </div>
-
-//             {/* <button
-//               className="mt-4 px-4 py-2 bg-violet-800 text-white rounded"
-              
-//             >
-//               بستن
-//             </button> */}
+//             <div className="flex justify-center">
+//               <p>
+//                 <strong> تاریخ تحویل داده شده:</strong>{" "}
+//                 {formatDateToJalali(orderDetails.updatedAt)}
+//               </p>
+//             </div>
 //           </>
 //         ) : (
 //           <p>Loading...</p>
@@ -157,7 +171,8 @@
 // };
 
 // export default OrderDetailsModal;
-////////////////////////////////////
+
+///////
 import React from "react";
 import { Order } from "../../pages/admin/adminPanelOrders";
 import { Link } from "react-router-dom";
@@ -169,7 +184,6 @@ export interface User {
   lastname: string;
   address: string;
   phoneNumber: string;
- 
 }
 
 interface OrderDetailsModalProps {
@@ -205,14 +219,25 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
       <div className="bg-white p-5 rounded-lg shadow-lg relative">
-      <button
-        className="absolute top-0 left-4 mt-4 mr-4 text-gray-700 hover:text-gray-900 transition ease-in-out duration-150"
-        onClick={onClose}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+        <button
+          className="absolute top-0 left-4 mt-4 mr-4 text-gray-700 hover:text-gray-900 transition ease-in-out duration-150"
+          onClick={onClose}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
         {orderDetails ? (
           <>
             <h2 className="text-lg font-bold mb-4">جزئیات سفارش</h2>
@@ -246,10 +271,7 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
               <strong> تاریخ تحویل:</strong>{" "}
               {formatDateToJalali(orderDetails.deliveryDate)}
             </p>
-            <p>
-              <strong> تاریخ تحویل داده شده:</strong>{" "}
-              {formatDateToJalali(orderDetails.updatedAt)}
-            </p>
+
             <p>
               <strong>وضعیت سفارش:</strong>{" "}
               {orderDetails.deliveryStatus
@@ -308,7 +330,26 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
                 </tbody>
               </table>
             </div>
-
+            <div className="flex justify-center items-center">
+              <p>
+                
+                {orderDetails.deliveryStatus ? (
+                  <>
+                    تحویل داده شده در تاریخ {formatDateToJalali(orderDetails.updatedAt)}
+                  </>
+                ) : (
+                  <>
+                   
+                    <button
+                      className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => {}}
+                    >
+                      تحویل شد
+                    </button>
+                  </>
+                )}
+              </p>
+            </div>
           </>
         ) : (
           <p>Loading...</p>
