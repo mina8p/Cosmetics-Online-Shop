@@ -5,6 +5,7 @@ import moment from "jalali-moment";
 import { useState } from "react";
 import { GetOrderById } from "../../../api/getOrdersById";
 import OrderDetailsModal from "../../modals/modalOrderDetails";
+import axios from "axios";
 
 export default function OrdersTable({
   _id,
@@ -27,11 +28,40 @@ export default function OrdersTable({
 
   const handleOpenModal = async (orderId: string) => {
     // Fetch order details using orderId
-    const orderDetails = await GetOrderById(orderId); // Assuming this is your fetch function
+    const orderDetails = await GetOrderById(orderId);
     setSelectedOrderDetails(orderDetails);
     setModalOpen(true);
     console.log(orderDetails);
   };
+
+  //////////////////////////////////
+  const handleMarkAsDelivered = async (orderId: string) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:8000/api/orders/${orderId}`,
+        {
+          deliveryStatus: true,
+        }
+      );
+
+      if (
+        response.status === 200 &&
+        response.data.order &&
+        selectedOrderDetails
+      ) {
+        const updatedOrderDetails: Order = {
+          ...selectedOrderDetails,
+          deliveryStatus: true,
+        };
+
+        setSelectedOrderDetails(updatedOrderDetails);
+        setModalOpen(false);
+      }
+    } catch (error) {
+      console.error("Error updating order status", error);
+    }
+  };
+  ///////////////////////////////////
 
   return (
     <tr key={_id}>
@@ -55,10 +85,10 @@ export default function OrdersTable({
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         orderDetails={selectedOrderDetails}
+        onDeliver={handleMarkAsDelivered}
       />
     </tr>
   );
 }
 
 /////////////
-
