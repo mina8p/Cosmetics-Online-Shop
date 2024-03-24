@@ -1,7 +1,9 @@
 import axios from "axios";
 
-
-export const GetAllProducts = async (page: number) => {
+export const GetAllProductsInCategory = async (
+  page: number,
+  category_id: string
+) => {
   const token = localStorage.getItem("accessToken");
   const config = {
     headers: {
@@ -9,11 +11,10 @@ export const GetAllProducts = async (page: number) => {
     },
   };
   const response = await axios.get(
-    `http://localhost:8000/api/products?page=${page}&limit=100&fields=-rating,-createdAt,-updatedAt,-__v&sort=-createdAt`,
+    `http://localhost:8000/api/products?category=${category_id}&page=${page}&limit=4&sort=-createdAt`,
     config
   );
   return response.data;
 };
 
 ////////////////
-

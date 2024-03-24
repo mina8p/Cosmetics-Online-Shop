@@ -6,7 +6,7 @@ import AdminPanelOrders from "../pages/admin/adminPanelOrders";
 import AdminPanelInventoryPrices from "../pages/admin/adminPanelPrices";
 import AdminPanelProducts from "../pages/admin/adminPanelProducts";
 import HomePage from "../pages/homePage/homePage";
-import NotFound from "../pages/notFoundPage/notFoundPage";
+// import NotFound from "../pages/notFoundPage/notFoundPage";
 import Cart from "../pages/cart/cart";
 import FinalizeCart from "../pages/cart/finalizeCart";
 import CartPayment from "../pages/cart/cartPayment";

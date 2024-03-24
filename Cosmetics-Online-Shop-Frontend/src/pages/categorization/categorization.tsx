@@ -7,59 +7,47 @@
 //   }
 
 ///////////
-/////////////////////useEffect
 
 // import { useEffect, useState } from "react";
 // import { Link, useParams } from "react-router-dom";
+// import { useQuery } from "react-query";
 // import { GetAllProducts } from "../../api/getAllProducts";
-// import { GetCategoryById } from "../../api/getCategoryById"; // اطمینان حاصل کنید که مسیر درست است
+// import { GetCategoryById } from "../../api/getCategoryById";
 // import { Product } from "../admin/adminPanelProducts";
 
 // const CategorizationPage = () => {
-//   const { categoryId } = useParams<{ categoryId: string }>();
-//   const [products, setProducts] = useState<Product[]>([]);
-//   const [categoryName, setCategoryName] = useState<string>("");
+//   const { categoryId } = useParams<{ categoryId: string | undefined }>();
+//   const [initiated, setInitiated] = useState(false);
 
 //   useEffect(() => {
-//     // بارگیری نام دسته‌بندی بر اساس آیدی
-//     const loadCategoryName = async () => {
-//       if (categoryId) {
-//         try {
-//           const categoryData = await GetCategoryById(categoryId);
-//           setCategoryName(categoryData.data.category.name); // تنظیم نام دسته‌بندی
-//         } catch (error) {
-//           console.error("Error fetching category name:", error);
-//         }
-//       }
-//     };
-
-//     // بارگیری همه محصولات مرتبط با دسته‌بندی
-//     const loadAllProducts = async () => {
-//       try {
-//         const allProductsData = await GetAllProducts(1);
-//         const filteredProducts = allProductsData.data.products.filter(
-//           (product: Product) => product.category === categoryId
-//         );
-//         setProducts(filteredProducts);
-//       } catch (error) {
-//         console.error("Error fetching products:", error);
-//       }
-//     };
-
-//     loadCategoryName();
-//     loadAllProducts();
+//     if (categoryId) {
+//       setInitiated(true);
+//     }
 //   }, [categoryId]);
+
+//   const { data: categoryName, isSuccess: isCategoryNameSuccess } = useQuery(
+//     ["categoryName", categoryId],
+//     () => GetCategoryById(categoryId!).then(res => res.data.category.name),
+//     { enabled: initiated }
+//   );
+
+//   const { data: products, isSuccess: isProductsSuccess } = useQuery(
+//     ["allProducts", categoryId],
+//     () => GetAllProducts(1).then(res => res.data.products.filter((product: Product) => product.category === categoryId)),
+//     { enabled: initiated }
+//   );
+
+//   if (!isCategoryNameSuccess || !isProductsSuccess) return <div>Loading...</div>;
 
 //   return (
 //     <div className="m-5 w-full flex flex-col">
-//       <div className="text-xl font-bold  mb-6">{`خانه / ${categoryName}`}</div>
-
-//       <div className="grid grid-cols-1  m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-//         {products.map((product) => (
-//           <Link to={`/products/${product._id}`} className="">
+//       <div className="text-xl font-bold mb-6">{`خانه / ${categoryName}`}</div>
+//       <div className="grid grid-cols-1 m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+//         {products?.map((product: Product) => (
+//           <Link to={`/products/${product._id}`} key={product._id} className="">
 //             <div className="product-item shadow shadow-violet-400 rounded-lg w-56 h-72 m-2 flex  justify-center items-center">
-//               <div className="">
-//                 <img
+//                <div className="">
+//                  <img
 //                   className="w-40 h-40 m-auto"
 //                   src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
 //                   alt={product.name}
@@ -81,61 +69,97 @@
 
 // export default CategorizationPage;
 
-////////////////////////////////////////
+/////////////
 
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
-import { GetAllProducts } from "../../api/getAllProducts";
+import queryString from "query-string";
+import { GetAllProductsInCategory } from "../../api/getAllProductsInCategory";
 import { GetCategoryById } from "../../api/getCategoryById";
 import { Product } from "../admin/adminPanelProducts";
 
 const CategorizationPage = () => {
   const { categoryId } = useParams<{ categoryId: string | undefined }>();
-  const [initiated, setInitiated] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // استخراج صفحه از URL با استفاده از query-string کتابخانه
+  const { page = "1" } = queryString.parse(location.search);
+  const [currentPage, setCurrentPage] = useState(parseInt(page as string));
+  const [totalPages, setTotalPages] = useState(0);
+
+  // اطمینان از اینکه URL شامل پارامتر صفحه با مقدار 1 است، حتی اگر کاربر مستقیماً به URL مراجعه کرده باشد
+  useEffect(() => {
+    if (!location.search) {
+      navigate(`?page=1`, { replace: true });
+    }
+  }, [location.search, navigate]);
 
   useEffect(() => {
     if (categoryId) {
-      setInitiated(true);
+      GetAllProductsInCategory(currentPage, categoryId).then((res) => {
+        setTotalPages(Math.ceil(res.total / res.per_page));
+      });
     }
-  }, [categoryId]);
+  }, [categoryId, currentPage]);
 
-  const { data: categoryName, isSuccess: isCategoryNameSuccess } = useQuery(
+  const { data: categoryName } = useQuery(
     ["categoryName", categoryId],
-    () => GetCategoryById(categoryId!).then(res => res.data.category.name),
-    { enabled: initiated }
+    () => GetCategoryById(categoryId!).then((res) => res.data.category.name),
+    { enabled: !!categoryId }
+  );
+  const { data: products } = useQuery(
+    ["allProductsInCategory", categoryId, currentPage],
+    () =>
+      GetAllProductsInCategory(currentPage, categoryId!).then(
+        (res) => res.data.products
+      ),
+    { enabled: !!categoryId }
   );
 
-  const { data: products, isSuccess: isProductsSuccess } = useQuery(
-    ["allProducts", categoryId],
-    () => GetAllProducts(1).then(res => res.data.products.filter((product: Product) => product.category === categoryId)),
-    { enabled: initiated }
-  );
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    navigate(`?page=${page}`);
+  };
 
-  if (!isCategoryNameSuccess || !isProductsSuccess) return <div>Loading...</div>;
+  if (!categoryName || !products) return <div>Loading...</div>;
 
   return (
     <div className="m-5 w-full flex flex-col">
       <div className="text-xl font-bold mb-6">{`خانه / ${categoryName}`}</div>
       <div className="grid grid-cols-1 m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {products?.map((product: Product) => (
-          <Link to={`/products/${product._id}`} key={product._id} className="">
-            <div className="product-item shadow shadow-violet-400 rounded-lg w-56 h-72 m-2 flex  justify-center items-center">
-               <div className="">
-                 <img
-                  className="w-40 h-40 m-auto"
+        {products.map((product: Product) => (
+          <Link to={`/products/${product._id}`} key={product._id}>
+            <div className="product-item shadow rounded-lg w-56 h-72 m-2 flex justify-center items-center">
+              <div>
+                <img
                   src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
                   alt={product.name}
+                  className="w-40 h-40 m-auto"
                 />
                 <div className="w-48">
                   <h3>{product.name}</h3>
                 </div>
-                <p className="text-left ">
-                  {product.price} {"تومان"}
-                </p>
+                <p className="text-left">{product.price} تومان</p>
               </div>
             </div>
           </Link>
+        ))}
+      </div>
+      <div className="pagination flex justify-center items-center mt-4">
+        {/* ایجاد دکمه‌های پیجینیشن */}
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index + 1)}
+            className={`page-item ${
+              currentPage === index + 1 ? "active font-bold" : ""
+            }`}
+            style={{ margin: "0 5px" }}
+          >
+            {index + 1}
+          </button>
         ))}
       </div>
     </div>
@@ -143,80 +167,3 @@ const CategorizationPage = () => {
 };
 
 export default CategorizationPage;
-
-
-
-/////////////
-//////////////page
-
-// import { useEffect, useState } from "react";
-// import { Link, useParams, useNavigate } from "react-router-dom";
-// import { GetAllProducts } from "../../api/getAllProducts";
-// import { GetCategoryById } from "../../api/getCategoryById";
-// import { Product } from "../admin/adminPanelProducts";
-// import { GetAllProductsP } from "../../api/getAllProducts(p)";
-
-// const CategorizationPage = () => {
-//   const { categoryId, page } = useParams();
-//   const navigate = useNavigate();
-//   const currentPage = parseInt(page || '1', 10);
-
-//   const [products, setProducts] = useState<Product[]>([]);
-//   const [categoryName, setCategoryName] = useState<string>("");
-//   const [totalPages, setTotalPages] = useState<number>(0);
-
-//   useEffect(() => {
-//     // Load Category Name
-//     const loadCategoryName = async () => {/* ... */};
-//     // Assume loadCategoryName function body is defined here
-
-//     // Load Products based on Category and Page
-//     const loadAllProducts = async () => {
-//       try {
-//         const allProductsData = await GetAllProducts(currentPage);
-//         setProducts(allProductsData.data.products);
-//         setTotalPages(allProductsData.data.totalPages); // Assume this info is provided by your API
-//       } catch (error) {
-//         console.error("Error fetching products:", error);
-//       }
-//     };
-
-//     loadCategoryName();
-//     loadAllProducts();
-//   }, [categoryId, currentPage]);
-
-//   const goToPage = (pageNumber: number) => {
-//     navigate(`/category/${categoryId}/page/${pageNumber}`);
-//   };
-
-//   return (
-//     <div>
-//       <div>{categoryName}</div>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-//         {products.map((product) => (
-//           <div key={product._id} className="product-item border p-4 flex flex-col items-center">
-//             <img
-//               className="w-20 h-20 mb-2"
-//               src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
-//               alt={product.name}
-//             />
-//             <h3 className="text-md font-semibold">{product.name}</h3>
-//             <p className="mb-2">Price: {product.price}</p>
-//             <Link to={`/products/${product._id}`} className="text-blue-600 hover:text-blue-800">View Product</Link>
-//           </div>
-//         ))}
-//       </div>
-//       <div className="pagination-controls">
-//         <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
-//           Previous
-//         </button>
-//         <span>Page {currentPage} of {totalPages}</span>
-//         <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>
-//           Next
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CategorizationPage;

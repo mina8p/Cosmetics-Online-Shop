@@ -169,7 +169,7 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
                     <button
                       className="ml-4 bg-violet-800 hover:bg-violet-900 text-white font-bold py-2 px-4 rounded"
                       onClick={async () => {
-                        await onDeliver(orderDetails._id);
+                        onDeliver(orderDetails._id);
                         onClose();
                       }}
                     >

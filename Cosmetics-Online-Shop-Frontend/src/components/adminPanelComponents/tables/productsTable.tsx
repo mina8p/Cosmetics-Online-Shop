@@ -36,15 +36,11 @@ export default function ProductTable({
     setShowEditModal(true);
   };
 
- 
-
   const saveEditedProduct = async (productData: Product) => {
     await updateProduct(productData._id, productData);
     queryClient.invalidateQueries(["products"]);
     setShowEditModal(false);
   };
-
-  
 
   return (
     <>
@@ -53,7 +49,7 @@ export default function ProductTable({
           <img
             src={`http://localhost:8000/images/products/thumbnails/${thumbnail}`}
             alt={name}
-            className="w-40 object-contain m-auto"
+            className="w-32 object-contain m-auto"
           />
         </td>
         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
@@ -113,29 +109,5 @@ export default function ProductTable({
     </>
   );
 }
-
-/////////////////////////////////
-// const queryClient = useQueryClient();
-
-// const [showEditModal, setShowEditModal] = useState(false);
-// const [currentProduct, setCurrentProduct] = useState(null);
-
-/////
-
-// const { data: subCategoryIdData } = useQuery(
-//   [`subCategoryId`, subcategory],
-//   () => fetchsubcategoryProducts(subcategory)
-// );
-////////////////
-// import { fetchsubcategoryProducts } from "../../../api/fetchsubcategorybyid";
-
-/////
-{
-  /* {subCategoryIdData?.data?.subcategory?.category?.name}/
-            {subCategoryIdData?.data?.subcategory?.name} */
-}
-
-//////////////////////////////////////
-
 
 

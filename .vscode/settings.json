@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["firstname", "Getsubcategory", "lastname", "updateproducts"]
+  "cSpell.words": [
+    "firstname",
+    "Getsubcategory",
+    "getsubcategorybyid",
+    "lastname",
+    "Subcategorization",
+    "updateproducts"
+  ]
 }
