@@ -14,6 +14,10 @@ export default function ProductTable({
   price,
   quantity,
   description,
+  category,
+  subcategory,
+  images,
+  brand,
 }: Product) {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
@@ -36,12 +40,36 @@ export default function ProductTable({
     setShowEditModal(true);
   };
 
-  const saveEditedProduct = async (productData: Product) => {
+  // const saveEditedProduct = async (productData: Product) => {
+  //   await updateProduct(productData._id, productData);
+  //   queryClient.invalidateQueries(["products"]);
+  //   setShowEditModal(false);
+  // };
+  /////////////////////////////////////////////////////////////////
+  const saveEditedProduct = async (formData: FormData) => {
+    // تبدیل FormData به JSON برای ارسال درخواست HTTP
+    const productData = convertFormDataToProduct(formData);
     await updateProduct(productData._id, productData);
     queryClient.invalidateQueries(["products"]);
     setShowEditModal(false);
   };
-
+  
+  // تابع کمکی برای تبدیل FormData به شیء Product
+  function convertFormDataToProduct(formData: FormData): Product {
+    let product: any = {};
+  
+    formData.forEach((value, key) => {
+      // برای فیلدهایی که نیاز به تبدیل دارند، مانند تصاویر یا اعداد، اینجا باید لاجیک اضافه شود
+      product[key] = value;
+    });
+  
+    // اطمینان حاصل کنید که همه مقادیر به نوع صحیح تبدیل شده‌اند
+    // به عنوان مثال، اگر قیمت باید یک عدد باشد:
+    product.price = Number(product.price);
+  
+    return product as Product;
+  }
+////////////////////////////////////////////////////////////////////
   return (
     <>
       <tr key={_id}>
@@ -67,14 +95,14 @@ export default function ProductTable({
               handleEdit({
                 _id,
                 name,
-                thumbnail,
                 description,
-                category: productIdData?.data?.product?.category?.name,
-                subcategory: productIdData?.data?.product?.subcategory?.name,
+                category,
+                subcategory,
                 price,
                 quantity,
-                brand: "",
-                images: [],
+                brand,
+                thumbnail,
+                images,
               })
             }
             className="text-violet-600 hover:text-violet-900"
@@ -110,4 +138,7 @@ export default function ProductTable({
   );
 }
 
-
+// _id: ""
+// images: [],
+// category: productIdData?.data?.product?.category?.name,
+// subcategory: productIdData?.data?.product?.subcategory?.name,

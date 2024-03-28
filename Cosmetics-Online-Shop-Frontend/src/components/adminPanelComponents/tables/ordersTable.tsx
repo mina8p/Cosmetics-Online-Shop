@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+// import { useQueryClient } from "react-query";
 import { fetchuserById } from "../../../api/fetchuserbyid";
 import { Order } from "../../../pages/admin/adminPanelOrders";
 import moment from "jalali-moment";
@@ -14,6 +15,7 @@ export default function OrdersTable({
   user,
   deliveryStatus,
 }: Order) {
+  // const queryClient = useQueryClient();////
   //////////////////////
   const { data: userIdData } = useQuery([`userId`, user], () =>
     fetchuserById(user)
@@ -30,6 +32,8 @@ export default function OrdersTable({
     // Fetch order details using orderId
     const orderDetails = await GetOrderById(orderId);
     setSelectedOrderDetails(orderDetails);
+
+
     setModalOpen(true);
     console.log(orderDetails);
   };
@@ -56,6 +60,7 @@ export default function OrdersTable({
 
         setSelectedOrderDetails(updatedOrderDetails);
         setModalOpen(false);
+        // queryClient.invalidateQueries(["orders"]);///
       }
     } catch (error) {
       console.error("Error updating order status", error);
