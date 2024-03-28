@@ -83,7 +83,9 @@ const ProductPage = () => {
   //////////////////////
   return (
     <div className="flex flex-col items-center mx-10 ">
-      <div>{product.category.name} {product.subcategory.name}</div>
+      <div>
+        {product.category.name} {product.subcategory.name}
+      </div>
       <div className="flex flex-col items-center my-6 lg:flex-row lg:gap-96 ">
         <div className="w-96 p-6 shadow ">
           <Slider className="" ref={sliderRef} {...sliderSettings}>
@@ -119,14 +121,18 @@ const ProductPage = () => {
 
       <div
         id=""
-        className="w-full  shadow border border-violet-400  space-y-2  p-10 mb-5"
+        className="w-full  shadow border border-violet-400  space-y-2  p-10 mb-5 text-gray-400"
       >
         <h2>توضیحات محصول</h2>
         <h2>{product.name}</h2>
 
         {/* <p>Quantity: {product.quantity}</p> */}
         <p>برند: {product.brand}</p>
-        <p>{product.description}</p>
+
+        <div
+          className=""
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        ></div>
       </div>
     </div>
   );

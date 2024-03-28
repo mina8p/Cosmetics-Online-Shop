@@ -148,7 +148,7 @@ const SubcategorizationPage = () => {
       <div className="grid grid-cols-1 m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {products.map((product: Product) => (
           <Link to={`/products/${product._id}`} key={product._id}>
-            <div className="product-item shadow rounded-lg w-56 h-72 m-2 flex justify-center items-center">
+            <div className="product-item shadow shadow-violet-400 rounded-lg w-56 h-72 m-2 flex justify-center items-center">
               <div>
                 <img
                   src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}

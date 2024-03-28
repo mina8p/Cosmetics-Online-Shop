@@ -70,13 +70,14 @@ const AdminLogin: React.FC = () => {
   };
 
   return (
+    <div className="h-screen w-full bg-violet-50">
     <form
-      className="flex flex-col w-full  font-IRANSans"
+      className="flex flex-col w-full "
       id="loginForm"
       onSubmit={handleSubmit}
     >
-      <div className=" flex flex-col justify-center items-center mt-24 ">
-        <div className="w-96 m-auto flex flex-col justify-center items-center shadow p-5">
+      <div className=" flex flex-col justify-center items-center mt-32 ">
+        <div className="w-96 m-auto flex flex-col justify-center items-center shadow p-5 bg-white rounded-md">
           <div className="w-full">
             <div className="flex justify-end ">
               <Link to="/">
@@ -121,20 +122,19 @@ const AdminLogin: React.FC = () => {
             </svg>
 
             <div className="flex flex-col justify-center items-center">
-            <input
-              className="w-80 bg-purple-50 border-none text-gray-900 text-sm rounded-lg focus:ring-purple-50 block p-2"
-              placeholder="نام کاربری"
-              type="text"
-              name="username"
-              onChange={handleChange}
-            />
-            <div className="h-7 ">
-              {errors.username && (
-                <div className="text-red-500 ">{errors.username}</div>
-              )}
+              <input
+                className="w-72 bg-purple-50 border-none text-gray-900 text-sm rounded-xl focus:ring-purple-50 block p-2"
+                placeholder="نام کاربری"
+                type="text"
+                name="username"
+                onChange={handleChange}
+              />
+              <div className="h-7 ">
+                {errors.username && (
+                  <div className="text-red-500 ">{errors.username}</div>
+                )}
+              </div>
             </div>
-            </div>
-            
           </div>
 
           {/* password input */}
@@ -153,20 +153,19 @@ const AdminLogin: React.FC = () => {
             </svg>
 
             <div className="flex flex-col justify-center items-center">
-            <input
-              className="w-80 bg-purple-50 border-none text-gray-900 text-sm rounded-lg focus:ring-purple-50 block  p-2 mt-1"
-              type="password"
-              placeholder="رمز عبور"
-              name="password"
-              onChange={handleChange}
-            />
-            <div className="h-7">
-              {errors.password && (
-                <div className="text-red-500 ">{errors.password}</div>
-              )}
+              <input
+                className="w-72 bg-purple-50 border-none text-gray-900 text-sm rounded-xl focus:ring-purple-50 block  p-2 mt-1"
+                type="password"
+                placeholder="رمز عبور"
+                name="password"
+                onChange={handleChange}
+              />
+              <div className="h-7">
+                {errors.password && (
+                  <div className="text-red-500 ">{errors.password}</div>
+                )}
+              </div>
             </div>
-            </div>
-            
           </div>
 
           <button
@@ -181,6 +180,7 @@ const AdminLogin: React.FC = () => {
         </div>
       </div>
     </form>
+    </div>
   );
 };
 
