@@ -200,7 +200,7 @@ const AdminPanelProducts = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // استخراج صفحه از URL با استفاده از کتابخانه query-string
+  
   const { page = "1" } = queryString.parse(location.search);
   const [currentPage, setCurrentPage] = useState(parseInt(page as string));
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -209,11 +209,11 @@ const AdminPanelProducts = () => {
     ["products", currentPage],
     () => fetchProducts(currentPage),
     {
-      keepPreviousData: true, // این گزینه برای حفظ داده‌های قبلی تا زمان بارگذاری داده‌های جدید مفید است
+      keepPreviousData: true, 
     }
   );
 
-  // بروزرسانی URL بر اساس صفحه جاری
+  
   useEffect(() => {
     navigate(`?page=${currentPage}`, { replace: true });
   }, [currentPage, navigate]);

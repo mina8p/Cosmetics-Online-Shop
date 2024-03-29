@@ -47,29 +47,24 @@ export default function ProductTable({
   // };
   /////////////////////////////////////////////////////////////////
   const saveEditedProduct = async (formData: FormData) => {
-    // تبدیل FormData به JSON برای ارسال درخواست HTTP
     const productData = convertFormDataToProduct(formData);
     await updateProduct(productData._id, productData);
     queryClient.invalidateQueries(["products"]);
     setShowEditModal(false);
   };
-  
-  // تابع کمکی برای تبدیل FormData به شیء Product
+
   function convertFormDataToProduct(formData: FormData): Product {
     let product: any = {};
-  
+
     formData.forEach((value, key) => {
-      // برای فیلدهایی که نیاز به تبدیل دارند، مانند تصاویر یا اعداد، اینجا باید لاجیک اضافه شود
       product[key] = value;
     });
-  
-    // اطمینان حاصل کنید که همه مقادیر به نوع صحیح تبدیل شده‌اند
-    // به عنوان مثال، اگر قیمت باید یک عدد باشد:
+
     product.price = Number(product.price);
-  
+
     return product as Product;
   }
-////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
   return (
     <>
       <tr key={_id}>

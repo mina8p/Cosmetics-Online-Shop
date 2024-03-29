@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
-    <form className="flex flex-col w-full  font-IRANSans">
+    <form className="flex flex-col w-full  font-IRANSans mb-10">
       <div className=" flex flex-col justify-center items-center mt-24 ">
         <div className="w-96 m-auto flex flex-col justify-center items-center shadow p-5">
           <div className="w-full"></div>

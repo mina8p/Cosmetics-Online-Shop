@@ -298,7 +298,6 @@ import { useQueryClient } from "react-query";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-
 export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
   isOpen,
   onClose,
@@ -371,8 +370,8 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
     e.preventDefault();
     try {
       await sendProductData(product);
-      queryClient.invalidateQueries("products"); // به‌روزرسانی لیست محصولات
-      onClose(); // بستن مودال
+      queryClient.invalidateQueries("products");
+      onClose();
     } catch (error) {
       console.error("Error while saving product:", error);
     }
@@ -389,10 +388,10 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
       ["clean"],
     ],
   };
-////////////////
+  ////////////////
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center ">
-      <div className="bg-white p-5 rounded-lg relative">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center  ">
+      <div className="bg-white p-5 rounded-lg relative w-[550px]">
         <button
           type="button"
           onClick={onClose}
@@ -426,7 +425,7 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
               name="name"
               value={product.name}
               onChange={handleChange}
-              className="border p-2 w-full"
+              className="border  p-2 w-full"
               required
             />
           </div>
@@ -457,50 +456,52 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
             />
           </div>
 
-          <div className="mb-1">
-            <label htmlFor="category" className="block mb-2">
-              گروه
-            </label>
-            <select
-              id="category"
-              name="category"
-              value={product.category}
-              onChange={handleChange}
-              className="border p-2 w-full"
-              required
-            >
-              <option value="">انتخاب کنید</option>
-              {categories.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-1">
-            <label htmlFor="subcategory" className="block mb-2">
-              زیر گروه
-            </label>
-            <select
-              id="subcategory"
-              name="subcategory"
-              value={product.subcategory}
-              onChange={handleChange}
-              className="border p-2 w-full"
-              required
-              disabled={isSubcategoryDisabled}
-            >
-              <option value="">انتخاب کنید</option>
-              {subcategories.map((subcategory) => (
-                <option key={subcategory._id} value={subcategory._id}>
-                  {subcategory.name}
-                </option>
-              ))}
-            </select>
+          <div className="flex justify-between gap-3">
+            <div className="mb-1 w-full">
+              <label htmlFor="category" className="block mb-2">
+                گروه
+              </label>
+              <select
+                id="category"
+                name="category"
+                value={product.category}
+                onChange={handleChange}
+                className="border p-2 w-full"
+                required
+              >
+                <option value="">انتخاب کنید</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-1 w-full">
+              <label htmlFor="subcategory" className="block mb-2">
+                زیر گروه
+              </label>
+              <select
+                id="subcategory"
+                name="subcategory"
+                value={product.subcategory}
+                onChange={handleChange}
+                className="border p-2 w-full"
+                required
+                disabled={isSubcategoryDisabled}
+              >
+                <option value="">انتخاب کنید</option>
+                {subcategories.map((subcategory) => (
+                  <option key={subcategory._id} value={subcategory._id}>
+                    {subcategory.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          <div className=" flex justify-between">
-            <div className="mb-1">
+          <div className=" flex justify-between gap-3">
+            <div className="mb-1 w-full">
               <label htmlFor="quantity" className="block mb-2">
                 موجودی
               </label>
@@ -514,7 +515,7 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
                 required
               />
             </div>
-            <div className="mb-1">
+            <div className="mb-1 w-full">
               <label htmlFor="brand" className="block mb-2">
                 برند
               </label>
@@ -530,11 +531,11 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
             </div>
           </div>
 
-          <div className="flex ">
+          <div className="flex gap-3">
             {/* Input field for thumbnail */}
-            <div className="mb-1">
+            <div className="mb-1 w-full ">
               <label htmlFor="thumbnail" className="block mb-2 ">
-                تامبنیل
+                تصویر کوچک
               </label>
               <input
                 type="file"
@@ -545,7 +546,7 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
               />
             </div>
             {/* Input field for images */}
-            <div className="mb-1">
+            <div className="mb-1 w-full">
               <label htmlFor="images" className="block mb-2">
                 تصاویر
               </label>
@@ -578,8 +579,6 @@ export default ModalAddProduct;
 
 /////////////////////
 /////////////////////
-
-
 
 /////////////////////
 
@@ -638,7 +637,7 @@ export default ModalAddProduct;
 //       "string.empty": `برند محصول نمی‌تواند خالی باشد.`,
 //       "any.required": `برند محصول الزامی است.`,
 //     }),
-   
+
 //   });
 //   ///////////
 //   const [categories, setCategories] = useState<
@@ -692,8 +691,6 @@ export default ModalAddProduct;
 //   };
 
 //   const queryClient = useQueryClient();
-
-  
 
 //   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
