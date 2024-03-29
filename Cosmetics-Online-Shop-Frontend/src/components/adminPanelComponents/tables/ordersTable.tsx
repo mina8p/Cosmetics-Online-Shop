@@ -29,7 +29,7 @@ export default function OrdersTable({
     useState<Order | null>(null);
 
   const handleOpenModal = async (orderId: string) => {
-    // Fetch order details using orderId
+    
     const orderDetails = await GetOrderById(orderId);
     setSelectedOrderDetails(orderDetails);
 

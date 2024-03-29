@@ -72,8 +72,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex m-auto mt-4 md:mt-0 ">
+        <div className="flex flex-col m-auto mt-4 md:mt-0 ">
           <p>ارتباط با ما</p>
+          <p>
+            شماره تماس : 09121111111
+          </p>
           {/* <a href=""  className="mr-4">
           
             <img src="../../public/instagram.png" alt="instagram" className="h-6 w-6" />

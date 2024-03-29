@@ -148,7 +148,7 @@ const CategorizationPage = () => {
         ))}
       </div>
       <div className="pagination flex justify-center items-center mt-4">
-        {/* ایجاد دکمه‌های پیجینیشن */}
+       
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}

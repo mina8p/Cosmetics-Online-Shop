@@ -13,5 +13,3 @@ export const fetchProducts = async (page: number) => {
   );
   return response.data;
 };
-
-

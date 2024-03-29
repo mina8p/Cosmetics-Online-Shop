@@ -40,11 +40,7 @@ export const updateProduct = async (
   const token = localStorage.getItem("accessToken");
   const formData = new FormData();
 
-
-
-  // اضافه کردن فیلدهای متنی به formData
   Object.keys(productData).forEach((key) => {
-    // برای فیلدهایی که از نوع object هستند، می‌توانید JSON.stringify کنید یا فیلدهای تکی را اضافه کنید
     if (typeof productData[key] === "object" && productData[key] !== null) {
       formData.append(key, JSON.stringify(productData[key]));
     } else {
@@ -52,7 +48,6 @@ export const updateProduct = async (
     }
   });
 
-  
   if (images) {
     Array.from(images).forEach((file, index) => {
       formData.append(`images[${index}]`, file);

@@ -83,8 +83,8 @@ const ProductPage = () => {
   //////////////////////
   return (
     <div className="flex flex-col items-center mx-10 ">
-      <div>
-        {product.category.name} {product.subcategory.name}
+      <div className="mt-5">
+        {`${product.category.name} / ${product.subcategory.name}`}
       </div>
       <div className="flex flex-col items-center my-6 lg:flex-row lg:gap-96 ">
         <div className="w-96 p-6 shadow ">
