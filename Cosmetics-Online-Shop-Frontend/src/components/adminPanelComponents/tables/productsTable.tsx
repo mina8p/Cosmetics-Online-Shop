@@ -48,7 +48,8 @@ export default function ProductTable({
   /////////////////////////////////////////////////////////////////
   const saveEditedProduct = async (formData: FormData) => {
     const productData = convertFormDataToProduct(formData);
-    await updateProduct(productData._id, productData);
+    const productDatatesti = convertFormDataToProducttesti(formData);
+    await updateProduct(productDatatesti._id, productData);
     queryClient.invalidateQueries(["products"]);
     setShowEditModal(false);
   };
@@ -56,14 +57,31 @@ export default function ProductTable({
   function convertFormDataToProduct(formData: FormData): Product {
     let product: any = {};
 
-    formData.forEach((value, key) => {
-      product[key] = value;
+    formData.forEach((value:any, key:any) => {
+      let fields :any = ["name","price","quantity","description","category","subcategory","brand"];
+      fields.forEach((item:any) => {
+       if(key==item){
+        product[key] = value;
+       }
+      });
     });
 
     product.price = Number(product.price);
 
     return product as Product;
   }
+
+  function convertFormDataToProducttesti(formData: FormData): Product {
+    let product: any = {};
+
+    formData.forEach((value, key) => {
+      product[key] = value;
+    });
+    product.price = Number(product.price);
+    return product as Product;
+  }
+
+
   ////////////////////////////////////////////////////////////////////
   return (
     <>
