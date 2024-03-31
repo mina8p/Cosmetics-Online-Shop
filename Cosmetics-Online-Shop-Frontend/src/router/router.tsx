@@ -14,7 +14,7 @@ import SuccessfulPayment from "../pages/cart/successfulPayment";
 import UnsuccessfulPayment from "../pages/cart/unsuccessfulPayment";
 import CategorizationPage from "../pages/categorization/categorization";
 import SubcategorizationPage from "../pages/categorization/Subcategorization";
-import ProductPage from "../pages/categorization/productPage";
+import ProductPage from "../pages/singleProductPage/productPage";
 import ProductsLayout from "../layout/productsLayout/productsLayout";
 
 const routes = createBrowserRouter([
@@ -59,10 +59,10 @@ const routes = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound />,
+        // element: <NotFound />,
       },
     ],
-    errorElement: <NotFound />,
+    // errorElement: <NotFound />,
   },
 
   ///////////////////////////////////////
@@ -114,10 +114,10 @@ const routes = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound />,
+        // element: <NotFound />,
       },
     ],
-    errorElement: <NotFound />,
+    // errorElement: <NotFound />,
   },
 ]);
 

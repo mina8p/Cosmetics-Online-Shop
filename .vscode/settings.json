@@ -3,6 +3,7 @@
     "firstname",
     "Getsubcategory",
     "getsubcategorybyid",
+    "handleadd",
     "lastname",
     "Subcategorization",
     "updateproducts"
