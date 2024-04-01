@@ -43,19 +43,34 @@ const routes = createBrowserRouter([
         path: "/finalizeCart",
         element: <FinalizeCart />,
       },
+      // {
+      //   path: "/payment",
+      //   element: <CartPayment />,
+      //   children: [
+      //     {
+      //       path: "successfulPayment",
+      //       element: <SuccessfulPayment />,
+      //     },
+      //     {
+      //       path: "unsuccessfulPayment",
+      //       element: <UnsuccessfulPayment />,
+      //     },
+      //   ],
+      // },
       {
         path: "/payment",
         element: <CartPayment />,
-        children: [
-          {
-            path: "successfulPayment",
-            element: <SuccessfulPayment />,
-          },
-          {
-            path: "unsuccessfulPayment",
-            element: <UnsuccessfulPayment />,
-          },
-        ],
+        
+      },
+
+
+      {
+        path: "/successfulPayment",
+        element: <SuccessfulPayment />,
+      },
+      {
+        path: "/unsuccessfulPayment",
+        element: <UnsuccessfulPayment />,
       },
       {
         path: "*",

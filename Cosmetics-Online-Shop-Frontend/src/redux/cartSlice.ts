@@ -12,6 +12,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+  
     addItem: (
       state,
       action: PayloadAction<{ productId: string; quantity: number }>
@@ -40,10 +41,15 @@ export const cartSlice = createSlice({
       const { productId } = action.payload;
       delete state.items[productId];
     },
+  //
+  clearCart: (state) => {
+    state.items = {}; 
+  },
+  //
   },
 });
 
-export const { addItem, removeItem, deleteItem } = cartSlice.actions;
+export const { addItem, removeItem, deleteItem, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
 
