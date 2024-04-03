@@ -9,6 +9,7 @@ interface Product {
   price: number;
   category: string;
   thumbnail: string;
+  quantity:number
 }
 
 interface Category {
@@ -69,9 +70,9 @@ const HomePage: React.FC = () => {
               <div className="w-48">
                 <h3>{shortenProductName(product.name)}</h3>
               </div>
-              <p className="text-left ">
-                {product.price} {"تومان"}
-              </p>
+              <p className="text-left">
+            {product.quantity === 0 ? " ناموجود" : `${product.price} تومان`}
+          </p>
             </div>
           </div>
         </Link>
