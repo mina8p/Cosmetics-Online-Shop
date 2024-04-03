@@ -183,6 +183,14 @@ export default function Cart() {
     dispatch(deleteItem({ productId }));
   };
 
+    // A function to calculate the total price of items in the cart
+    const calculateTotalPrice = () => {
+      return Object.entries(cartItems).reduce((total, [productId, quantity]) => {
+        const price = productInfos[productId]?.price || 0;
+        return total + price * quantity;
+      }, 0);
+    };
+
   useEffect(() => {
     const fetchAllProductInfos = async () => {
       const productInfoPromises = Object.keys(cartItems).map((productId) =>
@@ -238,11 +246,16 @@ export default function Cart() {
           </ul>
         )}
       </div>
+
+      <div>
+      <h2>جمع کل: {calculateTotalPrice()} تومان</h2>
       <div>
         <Link to={`/finalizeCart`}>
           <button>نهایی کردن سبد خرید</button>
         </Link>
       </div>
+      </div>
+      
     </div>
   );
 }
