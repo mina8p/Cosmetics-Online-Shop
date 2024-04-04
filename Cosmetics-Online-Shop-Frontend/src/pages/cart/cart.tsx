@@ -157,7 +157,6 @@ interface ProductInfo {
   availableQuantity: number;
 }
 
-
 const getProductById = async (productId: string) => {
   const token = localStorage.getItem("accessToken");
 
@@ -171,9 +170,9 @@ const getProductById = async (productId: string) => {
     config
   );
 
-
-  const { name, thumbnail, price, quantity,brand } = response.data.data.product;
-  return { name, image: thumbnail, price,brand, availableQuantity: quantity }; 
+  const { name, thumbnail, price, quantity, brand } =
+    response.data.data.product;
+  return { name, image: thumbnail, price, brand, availableQuantity: quantity };
 };
 
 export default function Cart() {
@@ -240,43 +239,92 @@ export default function Cart() {
 
   return (
     <div className="mb-56">
-      <h1 className="text-3xl font-bold underline ">سبد خرید</h1>
-      <div>
-        {Object.keys(cartItems).length === 0 ? (
-          <p>سبد خرید شما خالی است.</p>
-        ) : (
-          <ul>
-            {Object.entries(cartItems).map(([productId, quantity]) => (
-              <div key={productId}>
-
-                
-                <Link to={`/products/${productId}`} key={productId}>
-                  نام محصول: {productInfos[productId]?.name}
-                </Link>
-                قیمت: {productInfos[productId]?.price}
-                برند: {productInfos[productId]?.brand}
-                <img
-                  src={`http://localhost:8000/images/products/thumbnails/${productInfos[productId]?.image}`}
-                  alt="محصول"
-                  style={{ width: 50, height: 50 }}
-                />
-                <button onClick={() => handleRemoveItem(productId)}>-</button>
-                {quantity}
-                <button onClick={() => handleaddItem(productId)}>+</button>
-                <button onClick={() => handleDeleteItem(productId)}>حذف</button>
-              </div>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <div>
-        <h2>جمع کل: {calculateTotalPrice()} تومان</h2>
+      <h1 className="text-2xl font-bold  text-violet-900 m-5">سبد خرید</h1>
+      <div className="flex flex-col mx-20  my-6 lg:flex-row lg:gap-52 ">
         <div>
-          <Link to={`/finalizeCart`}>
-            <button>نهایی کردن سبد خرید</button>
-          </Link>
+          {Object.keys(cartItems).length === 0 ? (
+            <p>سبد خرید شما خالی است.</p>
+          ) : (
+            <div className="  p-5 mr-5">
+              {Object.entries(cartItems).map(([productId, quantity]) => (
+                <div
+                  className=" flex shadow shadow-violet-300 rounded-md p-5 mb-5"
+                  key={productId}
+                >
+                  <div className=" flex flex-col items-center">
+                    <Link to={`/products/${productId}`} key={productId}>
+                      <img
+                        src={`http://localhost:8000/images/products/thumbnails/${productInfos[productId]?.image}`}
+                        alt="محصول"
+                        className="w-28"
+                      />
+                    </Link>
+                    <div className="flex gap-4 w-20 border border-violet-300 bg-slate-100 rounded-md justify-center mt-3">
+                      <button onClick={() => handleaddItem(productId)}>
+                        +
+                      </button>
+                      <p>{quantity}</p>
+                      <button onClick={() => handleRemoveItem(productId)}>
+                        -
+                      </button>
+                    </div>
+                  </div>
+                  <div className="w-[500px] flex flex-col">
+                    <div className="flex justify-end">
+                      <button
+                        className=""
+                        onClick={() => handleDeleteItem(productId)}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          className="w-5 h-5 text-red-700"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div className="text-gray-500">
+                      {productInfos[productId]?.brand}
+                    </div>
+                    <div>
+                      <Link to={`/products/${productId}`} key={productId}>
+                        {productInfos[productId]?.name}
+                      </Link>
+                    </div>
+
+                    <div className="text-left mt-12">
+                      {productInfos[productId]?.price} تومان
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+
+        {Object.keys(cartItems).length > 0 && (
+          <div className="m-5 w-96 h-40 flex flex-col items-center shadow rounded-md bg-violet-50 p-10">
+            <h2 className="mb-4">
+              جمع سبد خرید: {calculateTotalPrice()} تومان
+            </h2>
+            <div>
+              <Link to={`/finalizeCart`}>
+                <button className="w-80  bg-purple-500 text-white rounded-3xl hover:bg-purple-700 focus:outline-none font-medium text-sm px-5 py-2.5 text-center mt-1">
+                  ثبت سفارش
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

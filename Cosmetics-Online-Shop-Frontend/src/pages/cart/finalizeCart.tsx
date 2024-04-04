@@ -1,223 +1,14 @@
-// import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../redux/store";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-
-// import DatePicker from "react-multi-date-picker";
-// import { DateObject } from "react-multi-date-picker";
-// import persian from "react-date-object/calendars/persian";
-// import persian_fa from "react-date-object/locales/persian_fa";
-
-// interface User {
-//   _id: string;
-//   firstname: string;
-//   lastname: string;
-//   username: string;
-//   phoneNumber: string;
-//   address: string;
-// }
-
-// export const fetchUserById = async (id: string) => {
-//   const token = localStorage.getItem("accessToken");
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   const response = await axios.get(
-//     `http://localhost:8000/api/users/${id}`,
-//     config
-//   );
-//   return response.data;
-// };
-
-// export default function FinalizeCart() {
-//   const [user, setUser] = useState<User | null>(null);
-//   const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
-//   const navigate = useNavigate();
-//   const cartItems = useSelector((state: RootState) => state.cart.items);
-
-//   useEffect(() => {
-//     const userId = "65e7295e50e39d2e1db9956a";
-//     fetchUserById(userId).then((data) => {
-//       setUser(data.data.user);
-//     });
-//   }, []);
-
-//   const handleDateChange = (date: DateObject) => {
-//     // Store the unix timestamp instead of formatted string
-//     setDeliveryDate(date.unix);
-//   };
-
-//   const handleNavigateToPayment = () => {
-//     if (user && deliveryDate && Object.keys(cartItems).length > 0) {
-//       const orderInfo = {
-//         userId: user._id,
-//         deliveryDate: deliveryDate, // This is now a unix timestamp
-//         cartItems: cartItems,
-//       };
-
-//       localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
-//       navigate("/payment");
-//     } else {
-//       alert("لطفاً تمامی اطلاعات را وارد کنید.");
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1 className="text-3xl font-bold underline">Finalize Cart</h1>
-//       <div>
-//         {user && (
-//           <div>
-//             <p>نام: {user.firstname}</p>
-//             <p>نام خانوادگی: {user.lastname}</p>
-//             <p>نام کاربری: {user.username}</p>
-//             <p>شماره تلفن: {user.phoneNumber}</p>
-//             <p>آدرس: {user.address}</p>
-//             <label>
-//               تاریخ تحویل:
-//               <DatePicker
-//                 value={
-//                   deliveryDate
-//                     ? new DateObject(new Date(deliveryDate * 1000))
-//                     : null
-//                 }
-//                 onChange={(date) => {
-//                   setDeliveryDate(date.unix);
-//                 }}
-//                 calendar={persian}
-//                 locale={persian_fa}
-//                 calendarPosition="bottom-right"
-//                 format="YYYY-MM-DD"
-//                 minDate={
-//                   new DateObject({ calendar: persian, locale: persian_fa })
-//                 }
-//               />
-//             </label>
-//           </div>
-//         )}
-//         <button onClick={handleNavigateToPayment}>ادامه به پرداخت</button>
-//       </div>
-//     </div>
-//   );
-// }
-/////////
-/////////////////////////////////////////////////////////////1348
-// import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../redux/store";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-
-// import DatePicker from "react-multi-date-picker";
-// import { DateObject } from "react-multi-date-picker";
-// import persian from "react-date-object/calendars/persian";
-// import persian_fa from "react-date-object/locales/persian_fa";
-
-// interface User {
-//   _id: string;
-//   firstname: string;
-//   lastname: string;
-//   username: string;
-//   phoneNumber: string;
-//   address: string;
-// }
-
-// export const fetchUserById = async (id: string) => {
-//   const token = localStorage.getItem("accessToken");
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   const response = await axios.get(
-//     `http://localhost:8000/api/users/${id}`,
-//     config
-//   );
-//   return response.data;
-// };
-
-// export default function FinalizeCart() {
-//   const [user, setUser] = useState<User | null>(null);
-//   const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
-//   const navigate = useNavigate();
-//   const cartItems = useSelector((state: RootState) => state.cart.items);
-
-//   useEffect(() => {
-//     const userId = "65e7295e50e39d2e1db9956a";
-//     fetchUserById(userId).then((data) => {
-//       setUser(data.data.user);
-//     });
-//   }, []);
-
-//   // const handleDateChange = (date: DateObject) => {
-//   //   // Store the unix timestamp instead of formatted string
-//   //   setDeliveryDate(date.unix);
-//   // };
-
-//   const handleNavigateToPayment = () => {
-//     if (user && deliveryDate && Object.keys(cartItems).length > 0) {
-//       const orderInfo = {
-//         userId: user._id,
-//         deliveryDate: deliveryDate, // This is now a unix timestamp
-//         cartItems: cartItems,
-//       };
-
-//       localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
-//       navigate("/payment");
-//     } else {
-//       alert("لطفاً تمامی اطلاعات را وارد کنید.");
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1 className="text-3xl font-bold underline">Finalize Cart</h1>
-//       <div>
-//         {user && (
-//           <div>
-//             <p>نام: {user.firstname}</p>
-//             <p>نام خانوادگی: {user.lastname}</p>
-//             <p>نام کاربری: {user.username}</p>
-//             <p>شماره تلفن: {user.phoneNumber}</p>
-//             <p>آدرس: {user.address}</p>
-//             <label>
-//               تاریخ تحویل:
-//               <DatePicker
-//                 value={
-//                   deliveryDate
-//                     ? new DateObject(new Date(deliveryDate * 1000))
-//                     : null
-//                 }
-//                 onChange={(date) => {
-//                   setDeliveryDate(date.unix);
-//                 }}
-//                 calendar={persian}
-//                 locale={persian_fa}
-//                 calendarPosition="bottom-right"
-//                 format="YYYY-MM-DD"
-//                 minDate={
-//                   new DateObject({ calendar: persian, locale: persian_fa })
-//                 }
-//               />
-//             </label>
-//           </div>
-//         )}
-//         <button onClick={handleNavigateToPayment}>ادامه به پرداخت</button>
-//       </div>
-//     </div>
-//   );
-// }
-
-////////////////////////////////////////////////////
-// //////
+///////////////////////////////////////////////////////////ok shamsi
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import DatePicker from "react-multi-date-picker";
+import { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 
 interface User {
   _id: string;
@@ -244,79 +35,123 @@ export const fetchUserById = async (id: string) => {
 
 export default function FinalizeCart() {
   const [user, setUser] = useState<User | null>(null);
-  const [deliveryDate, setDeliveryDate] = useState("");
+  const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
   const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
   useEffect(() => {
-    const userId = "65e7295e50e39d2e1db9956a"; // ID provided for the user
+    const userId = "65e7295e50e39d2e1db9956a";
     fetchUserById(userId).then((data) => {
       setUser(data.data.user);
     });
   }, []);
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDeliveryDate(event.target.value);
-  };
-
   const handleNavigateToPayment = () => {
-
     if (user && deliveryDate && Object.keys(cartItems).length > 0) {
-
       const orderInfo = {
         userId: user._id,
-        deliveryDate: deliveryDate,
+        deliveryDate: deliveryDate, // This is now a unix timestamp
         cartItems: cartItems,
       };
 
       localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
       navigate("/payment");
     } else {
-      alert("لطفاً تمامی اطلاعات را وارد کنید.");
+      alert("لطفاً  تاریخ تحویل را انتخاب کنید.");
     }
   };
 
   return (
-    <div>
+    <div className="h-screen w-full  bg-white">
       <h1 className="text-3xl font-bold underline">Finalize Cart</h1>
-      <div>
+      <div className="mx-56 m-auto flex flex-col justify-center items-center shadow p-5 bg-violet-50 rounded-md">
         {user && (
           <div>
-            <p>نام: {user.firstname}</p>
-            <p>نام خانوادگی: {user.lastname}</p>
-            <p>نام کاربری: {user.username}</p>
-            <p>شماره تلفن: {user.phoneNumber}</p>
-            <p>آدرس: {user.address}</p>
-            <label>
-              تاریخ تحویل:
-              <input
-                type="date"
-                value={deliveryDate}
-                onChange={handleDateChange}
+            <div className="flex flex-col gap-8">
+              <div className="flex gap-20">
+                <div>
+                  <label>نام:</label>
+                  <input
+                    type="text"
+                    value={user.firstname}
+                    readOnly
+                    className="appearance-none block w-96 px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-500 focus:outline-none sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label>نام خانوادگی:</label>
+                  <input
+                    type="text"
+                    value={user.lastname}
+                    readOnly
+                    className="appearance-none block w-96 px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-500 focus:outline-none sm:text-sm"
+                  />
+                </div>
+              </div>
+              <div className="flex gap-20">
+                <div>
+                  <label>شماره تلفن:</label>
+                  <input
+                    type="text"
+                    value={user.phoneNumber}
+                    readOnly
+                    className="appearance-none block w-96 px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-500 focus:outline-none sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label>آدرس:</label>
+                  <input
+                    type="text"
+                    value={user.address}
+                    readOnly
+                    className="appearance-none block w-96 px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-500 focus:outline-none sm:text-sm"
+                  />
+                </div>
+              </div>
+              <div className="">
+                <label > تاریخ تحویل:</label>
+             <div>
+              <DatePicker
+                value={
+                  deliveryDate ? new DateObject(new Date(deliveryDate)) : null
+                }
+                onChange={(date) => {
+                  setDeliveryDate(date.unix * 1000); // تبدیل زمان یونیکس به میلی‌ثانیه
+                }}
+                className=""
+                calendar={persian}
+                locale={persian_fa}
+                calendarPosition="bottom-right"
+                format="YYYY-MM-DD"
+                minDate={
+                  new DateObject({ calendar: persian, locale: persian_fa })
+                }
               />
-            </label>
+              </div>
+            </div>
+            </div>
+            
           </div>
         )}
-        <button onClick={handleNavigateToPayment}>ادامه به پرداخت</button>
+        <button className="w-80  bg-purple-500 text-white rounded-3xl hover:bg-purple-700 focus:outline-none font-medium text-sm px-5 py-2.5 text-center mt-1" onClick={handleNavigateToPayment}>پرداخت</button>
       </div>
     </div>
   );
 }
-//////
 
-/////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////ok shamsi
 // import { useEffect, useState } from "react";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../redux/store";
 // import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 
-// import moment from 'jalali-moment';
-// import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-// // import DatePicker from 'react-modern-calendar-datepicker';
-
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-multi-date-picker";
+// import { DateObject } from "react-multi-date-picker";
+// import persian from "react-date-object/calendars/persian";
+// import persian_fa from "react-date-object/locales/persian_fa";
 
 // interface User {
 //   _id: string;
@@ -327,13 +162,102 @@ export default function FinalizeCart() {
 //   address: string;
 // }
 
-// function toJalali(date:any) {
-//   return moment(date).locale('fa').format('YYYY/MM/DD');
+// export const fetchUserById = async (id: string) => {
+//   const token = localStorage.getItem("accessToken");
+//   const config = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+//   const response = await axios.get(
+//     `http://localhost:8000/api/users/${id}`,
+//     config
+//   );
+//   return response.data;
+// };
+
+// export default function FinalizeCart() {
+//   const [user, setUser] = useState<User | null>(null);
+//   const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
+//   const navigate = useNavigate();
+//   const cartItems = useSelector((state: RootState) => state.cart.items);
+
+//   useEffect(() => {
+//     const userId = "65e7295e50e39d2e1db9956a";
+//     fetchUserById(userId).then((data) => {
+//       setUser(data.data.user);
+//     });
+//   }, []);
+
+//   const handleNavigateToPayment = () => {
+//     if (user && deliveryDate && Object.keys(cartItems).length > 0) {
+//       const orderInfo = {
+//         userId: user._id,
+//         deliveryDate: deliveryDate, // This is now a unix timestamp
+//         cartItems: cartItems,
+//       };
+
+//       localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+//       navigate("/payment");
+//     } else {
+//       alert("لطفاً تمامی اطلاعات را وارد کنید.");
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h1 className="text-3xl font-bold underline">Finalize Cart</h1>
+//       <div>
+//         {user && (
+//           <div>
+//             <p>نام: {user.firstname}</p>
+//             <p>نام خانوادگی: {user.lastname}</p>
+//             <p>نام کاربری: {user.username}</p>
+//             <p>شماره تلفن: {user.phoneNumber}</p>
+//             <p>آدرس: {user.address}</p>
+//             <label>
+//               تاریخ تحویل:
+//               <DatePicker
+//                 value={
+//                   deliveryDate
+//                     ? new DateObject(new Date(deliveryDate ))
+//                     : null
+//                 }
+//                 onChange={(date) => {
+//                   setDeliveryDate(date.unix * 1000); // تبدیل زمان یونیکس به میلی‌ثانیه
+//                 }}
+//                 calendar={persian}
+//                 locale={persian_fa}
+//                 calendarPosition="bottom-right"
+//                 format="YYYY-MM-DD"
+//                 minDate={
+//                   new DateObject({ calendar: persian, locale: persian_fa })
+//                 }
+//               />
+//             </label>
+//           </div>
+//         )}
+//         <button onClick={handleNavigateToPayment}>ادامه به پرداخت</button>
+//       </div>
+//     </div>
+//   );
 // }
 
-// // تابع تبدیل تاریخ شمسی به میلادی برای ذخیره
-// function fromJalali(str:any) {
-//   return moment.from(str, 'fa', 'YYYY/MM/DD').toDate();
+////////////////////////////////////////////////////
+// //////ok miladi
+// import { useEffect, useState } from "react";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../redux/store";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+
+// interface User {
+//   _id: string;
+//   firstname: string;
+//   lastname: string;
+//   username: string;
+//   phoneNumber: string;
+//   address: string;
 // }
 
 // export const fetchUserById = async (id: string) => {
@@ -356,8 +280,6 @@ export default function FinalizeCart() {
 //   const navigate = useNavigate();
 //   const cartItems = useSelector((state: RootState) => state.cart.items);
 
-//     const [startDate, setStartDate] = useState(new Date());
-
 //   useEffect(() => {
 //     const userId = "65e7295e50e39d2e1db9956a"; // ID provided for the user
 //     fetchUserById(userId).then((data) => {
@@ -365,34 +287,24 @@ export default function FinalizeCart() {
 //     });
 //   }, []);
 
+//   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     setDeliveryDate(event.target.value);
+//   };
+
 //   const handleNavigateToPayment = () => {
-//     // ذخیره اطلاعات سفارش در مکانی (مثلاً Redux store یا LocalStorage) که بعداً بتوان در صفحه پرداخت استفاده کرد
+
 //     if (user && deliveryDate && Object.keys(cartItems).length > 0) {
-//       // اینجا می‌توانید اطلاعات سفارش را ذخیره کنید
+
 //       const orderInfo = {
 //         userId: user._id,
 //         deliveryDate: deliveryDate,
 //         cartItems: cartItems,
 //       };
-//       // مثلاً در LocalStorage ذخیره کنید
-//       localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
-//       navigate('/payment');
+
+//       localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+//       navigate("/payment");
 //     } else {
-//       alert('لطفاً تمامی اطلاعات را وارد کنید.');
-//     }
-//   };
-
-//   const [selectedDay, setSelectedDay] = useState(null);
-
-//   const handleDateChange = (value:any) => {
-//     // تنظیم تاریخ شمسی انتخاب شده
-//     setSelectedDay(value);
-
-//     // تبدیل تاریخ شمسی به میلادی و تنظیم برای ارسال به سرور
-//     if (value) {
-//       const { year, month, day } = value;
-//       const gregorianDate = moment(`${year}/${month}/${day}`, 'jYYYY/jM/jD').locale('en').format('YYYY-MM-DD');
-//       setDeliveryDate(gregorianDate);
+//       alert("لطفاً تمامی اطلاعات را وارد کنید.");
 //     }
 //   };
 
@@ -407,25 +319,14 @@ export default function FinalizeCart() {
 //             <p>نام کاربری: {user.username}</p>
 //             <p>شماره تلفن: {user.phoneNumber}</p>
 //             <p>آدرس: {user.address}</p>
-
 //             <label>
-//         تاریخ تحویل:
-//         <DatePicker
-//       selected={startDate}
-//       onChange={date => setStartDate(date)}
-//       dateFormat="yyyy/MM/dd"
-//       placeholderText="تاریخ را انتخاب کنید"
-//       withPortal
-//       calendarClassName="jalali-datepicker"
-//       renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
-//         <div>
-//           <button onClick={decreaseMonth}>قبلی</button>
-//           <span>{toJalali(date)}</span>
-//           <button onClick={increaseMonth}>بعدی</button>
-//         </div>
-//       )}
-//     />
-//       </label>
+//               تاریخ تحویل:
+//               <input
+//                 type="date"
+//                 value={deliveryDate}
+//                 onChange={handleDateChange}
+//               />
+//             </label>
 //           </div>
 //         )}
 //         <button onClick={handleNavigateToPayment}>ادامه به پرداخت</button>
@@ -433,3 +334,4 @@ export default function FinalizeCart() {
 //     </div>
 //   );
 // }
+//////

@@ -365,7 +365,7 @@ const ProductComponent: React.FC<ProductComponentProps> = ({ product }) => {
         <button onClick={decrementQuantity} disabled={quantity === 1}>
           -
         </button>
-        <input className="w-8 " type="number" value={quantity} readOnly />
+        <input className="w-8 focus:outline-none" type="number" value={quantity} readOnly />
         <button
           onClick={incrementQuantity}
           disabled={quantity === product.quantity}

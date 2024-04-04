@@ -65,18 +65,30 @@ export default function CartPayment() {
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Cart Payment</h1>
-      <div>
-        <button onClick={handlePayment} disabled={isSubmitting}>
-          {isSubmitting ? "در حال پردازش..." : "پرداخت"}
-        </button>
-        <button
-          onClick={() => navigate("/unsuccessfulPayment")}
-          disabled={isSubmitting}
-        >
-          انصراف
-        </button>
+    <div className="w-full mb-16">
+    
+      <div className="mt-10">
+        <img
+          className="w-[600px] m-auto"
+          src="../../public/download.png"
+          alt=""
+        />
+        <div className="flex justify-center ">
+          <button
+            className="ml-8 bg-blue-400 p-2 w-24 text-white rounded-md"
+            onClick={handlePayment}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "در حال پردازش..." : "پرداخت"}
+          </button>
+          <button
+            className="ml-48 bg-red-500 p-2 w-24 text-white rounded-md"
+            onClick={() => navigate("/unsuccessfulPayment")}
+            disabled={isSubmitting}
+          >
+            انصراف
+          </button>
+        </div>
       </div>
     </div>
   );
