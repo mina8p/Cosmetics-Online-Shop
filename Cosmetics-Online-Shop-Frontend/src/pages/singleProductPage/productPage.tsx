@@ -215,7 +215,7 @@ interface ProductComponentProps {
 const NextArrow = ({ onClick }: { onClick?: () => void }) => (
   <button
     onClick={onClick}
-    className="absolute top-1/2 -right-6 -translate-y-1/2 z-10 text-xl   text-black p-2 rounded-full font-bold"
+    className="absolute top-1/2 -right-6 -translate-y-1/2 z-10 text-2xl   text-violet-600 p-2 rounded-full font-bold"
     style={{ display: "block" }}
   >
     &gt;
@@ -225,7 +225,7 @@ const NextArrow = ({ onClick }: { onClick?: () => void }) => (
 const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
   <button
     onClick={onClick}
-    className="absolute top-1/2 -left-6 -translate-y-1/2 z-10 text-xl  text-black p-2 rounded-full font-bold"
+    className="absolute top-1/2 -left-6 -translate-y-1/2 z-10 text-2xl  text-violet-600 p-2 rounded-full font-bold"
     style={{ display: "block" }}
   >
     &lt;
@@ -269,11 +269,9 @@ const ProductPage = () => {
 
   //////////////////
   return (
-    <div className="flex flex-col items-center mx-10 ">
-      <div className="mt-5">
-        {`${product.category.name} / ${product.subcategory.name}`}
-      </div>
-      <div className="flex flex-col items-center my-6 lg:flex-row lg:gap-96 ">
+    <div className="flex flex-col items-center mx-10 gap-2">
+      <div className="mt-5"></div>
+      <div className="flex flex-col  my-6 lg:flex-row lg:gap-20 ">
         <div className="w-96 p-6 shadow ">
           <Slider className="" ref={sliderRef} {...sliderSettings}>
             {product.images.map((image, index) => (
@@ -289,9 +287,12 @@ const ProductPage = () => {
             />
           </Slider>
         </div>
+        <div className="text-violet-800">
+          {`${product.category.name} / ${product.subcategory.name}`}
+        </div>
 
-        <div className="m-5 w-96 flex flex-col items-center shadow p-10">
-        <div>
+        <div className="m-5 w-96 h-60 flex flex-col items-center shadow p-10">
+          <div>
             <h2>{product.name}</h2>
             {/* شرط برای نمایش یا عدم نمایش قیمت بر اساس موجودی */}
             {product.quantity > 0 && (
@@ -313,8 +314,7 @@ const ProductPage = () => {
       >
         <h2>توضیحات محصول</h2>
         <h2>{product.name}</h2>
-
-        {/* <p>Quantity: {product.quantity}</p> */}
+        {/* <p> {product.quantity}</p> */}
         <p>برند: {product.brand}</p>
 
         <div
@@ -356,24 +356,36 @@ const ProductComponent: React.FC<ProductComponentProps> = ({ product }) => {
     dispatch(addItem({ productId: product._id, quantity }));
   };
 
-  
   if (product.quantity === 0) {
-    return <div> ناموجود</div>;
+    return <div className="text-gray-500 mt-2"> ناموجود</div>;
   } else {
     return (
-      <div>
-        <button onClick={decrementQuantity} disabled={quantity === 1}>
-          -
-        </button>
-        <input className="w-8 focus:outline-none" type="number" value={quantity} readOnly />
+      <div className="">
+        <div className="border  border-violet-400 rounded-md w-20 flex justify-center">
+          <button
+            onClick={incrementQuantity}
+            disabled={quantity === product.quantity}
+            className="ml-4 text-violet-600 text-xl "
+          >
+            +
+          </button>
+          <input
+            className="w-8 focus:outline-none"
+            type="number"
+            value={quantity}
+            readOnly
+          />
+          <button
+            className=" text-violet-600 text-xl font-bold "
+            onClick={decrementQuantity}
+            disabled={quantity === 1}
+          >
+            -
+          </button>
+        </div>
+
         <button
-          onClick={incrementQuantity}
-          disabled={quantity === product.quantity}
-        >
-          +
-        </button>
-        <button
-          className="w-80 bg-purple-500 text-white rounded-3xl hover:bg-purple-700 focus:outline-none font-medium text-sm px-5 py-2.5 text-center mt-1"
+          className="w-80  bg-purple-500 text-white rounded-3xl hover:bg-purple-700 focus:outline-none font-medium text-sm px-5 py-2.5 text-center mt-5"
           onClick={handleAddToCart}
         >
           افزودن به سبد خرید
@@ -382,6 +394,5 @@ const ProductComponent: React.FC<ProductComponentProps> = ({ product }) => {
     );
   }
 };
-
 
 /////

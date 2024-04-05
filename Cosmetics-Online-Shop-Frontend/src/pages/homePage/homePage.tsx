@@ -9,7 +9,7 @@ interface Product {
   price: number;
   category: string;
   thumbnail: string;
-  quantity:number
+  quantity: number;
 }
 
 interface Category {
@@ -45,17 +45,15 @@ const HomePage: React.FC = () => {
     loadCategories();
   }, []);
 
- 
   const shortenProductName = (name: string): string => {
     const words = name.split(" ");
     return words.length > 10 ? `${words.slice(0, 10).join(" ")}...` : name;
   };
 
- 
   const renderCategoryProducts = (categoryId: string): JSX.Element[] => {
     const categoryProducts = products
       .filter((product: Product) => product.category === categoryId)
-      .slice(0, 6); 
+      .slice(0, 6);
 
     return categoryProducts.map((product: Product) => (
       <div className="flex " key={product._id}>
@@ -70,9 +68,13 @@ const HomePage: React.FC = () => {
               <div className="w-48">
                 <h3>{shortenProductName(product.name)}</h3>
               </div>
-              <p className="text-left">
-            {product.quantity === 0 ? " ناموجود" : `${product.price} تومان`}
-          </p>
+              <p
+                className={`${
+                  product.quantity === 0 ? "text-gray-500 text-left mt-2" : "text-black text-left mt-2"
+                }`}
+              >
+                {product.quantity === 0 ? "ناموجود" : `${product.price} تومان`}
+              </p>
             </div>
           </div>
         </Link>
@@ -119,12 +121,6 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-
-
-
-
-
-
 
 //////////////////
 // import CategoriesWithSubcategories from "./CategoriesWithSubcategories";

@@ -8,7 +8,7 @@ export default function Header() {
   // const totalItems = useSelector(selectTotalItemsInCart);
   const totalUniqueItems = useSelector(selectTotalUniqueItemsInCart);
   return (
-    <div className=" flex justify-around items-center shadow h-20 w-full bg-purple-50 font-IRANSans">
+    <div className="container w-full  flex justify-around items-center shadow h-20  bg-purple-50 ">
       <div className=" flex  justify-center items-center font-bold ">
         <div className="flex">
           <div>

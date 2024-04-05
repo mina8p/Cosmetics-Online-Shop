@@ -259,12 +259,15 @@ export default function Cart() {
                         className="w-28"
                       />
                     </Link>
-                    <div className="flex gap-4 w-20 border border-violet-300 bg-slate-100 rounded-md justify-center mt-3">
-                      <button onClick={() => handleaddItem(productId)}>
+                    <div className="flex gap-4 w-20 border border-violet-300 bg-gray-100 rounded-md justify-center mt-3">
+                      <button
+                        className="text-violet-600"
+                        onClick={() => handleaddItem(productId)}
+                      >
                         +
                       </button>
                       <p>{quantity}</p>
-                      <button onClick={() => handleRemoveItem(productId)}>
+                      <button className="text-violet-600" onClick={() => handleRemoveItem(productId)}>
                         -
                       </button>
                     </div>
