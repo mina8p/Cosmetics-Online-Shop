@@ -22,12 +22,12 @@ export const ModalConfirmDelete: React.FC<ModalConfirmDeleteProps> = ({
         <div className="flex justify-end gap-4 mt-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-violet-200 text-black rounded"
+            className="px-4 py-2  text-black rounded"
           >
             لغو
           </button>
 
-          <button onClick={() => onConfirm().finally(onClose)}>حذف</button>
+          <button className="bg-violet-200 px-4 py-2  text-black rounded" onClick={() => onConfirm().finally(onClose)}>حذف</button>
         </div>
       </div>
     </div>

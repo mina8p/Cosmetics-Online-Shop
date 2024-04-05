@@ -62,11 +62,12 @@ export default function FinalizeCart() {
   };
 
   return (
-    <div className="h-screen w-full  bg-white">
-      <h1 className="text-3xl font-bold underline">Finalize Cart</h1>
+    <div className=" w-full  bg-white mt-20 mb-20">
       <div className="mx-56 m-auto flex flex-col justify-center items-center shadow p-5 bg-violet-50 rounded-md">
         {user && (
           <div>
+      <h1 className="text-2xl font-bold text-violet-800 my-5">نهایی کردن سبد خرید </h1>
+
             <div className="flex flex-col gap-8">
               <div className="flex gap-20">
                 <div>
