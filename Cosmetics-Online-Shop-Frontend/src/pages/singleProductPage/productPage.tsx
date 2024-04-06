@@ -293,10 +293,10 @@ const ProductPage = () => {
 
         <div className="m-5 w-96 h-60 flex flex-col items-center shadow p-10">
           <div>
-            <h2>{product.name}</h2>
-            {/* شرط برای نمایش یا عدم نمایش قیمت بر اساس موجودی */}
+            <h2 className="w-80">{product.name}</h2>
+            {/* /شرط موجودی/ */}
             {product.quantity > 0 && (
-              <p className="text-left">
+              <p className="text-left mt-2">
                 {product.price} {"تومان"}
               </p>
             )}

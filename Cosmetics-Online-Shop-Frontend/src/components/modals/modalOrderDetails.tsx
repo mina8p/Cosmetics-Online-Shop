@@ -68,6 +68,7 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
         {orderDetails ? (
           <>
             <h2 className="text-lg font-bold mb-4">جزئیات سفارش</h2>
+            <div className="flex flex-col gap-1">
             <p>
               <strong>کاربر:</strong>{" "}
               {isUserObject(orderDetails.user)
@@ -105,6 +106,8 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
                 ? "تحویل داده شده"
                 : "در انتظار تحویل"}
             </p>
+            </div>
+            
 
             {/* Table for ordered products */}
             <div className="mt-4">

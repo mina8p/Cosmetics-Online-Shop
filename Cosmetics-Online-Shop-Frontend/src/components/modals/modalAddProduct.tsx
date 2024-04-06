@@ -378,7 +378,7 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
   };
 
   if (!isOpen) return null;
-
+//
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],

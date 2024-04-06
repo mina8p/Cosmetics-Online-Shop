@@ -122,8 +122,9 @@ export default function FinalizeCart() {
                   setDeliveryDate(date.unix * 1000); // تبدیل زمان یونیکس به میلی‌ثانیه
                 }}
                 className=""
+                // inputClass="w-full"
                 calendar={persian}
-                locale={persian_fa}
+                locale={persian_fa} 
                 calendarPosition="bottom-right"
                 format="YYYY-MM-DD"
                 minDate={
