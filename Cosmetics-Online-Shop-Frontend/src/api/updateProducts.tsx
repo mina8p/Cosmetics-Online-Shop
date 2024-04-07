@@ -73,3 +73,4 @@ export const updateProduct = async (
     throw error;
   }
 };
+

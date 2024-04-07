@@ -117,14 +117,23 @@ export default function Cart() {
   };
 
   return (
-    <div className="h-screen">
-      <h1 className="text-2xl font-bold  text-violet-900 mt-5 mr-32">
+    <div className="container w-full mb-40  flex flex-col justify-center items-center">
+      <h1 className="text-2xl font-bold text-violet-900 mt-5 ">
         سبد خرید
       </h1>
-      <div className="flex flex-col mx-20  my-6 lg:flex-row lg:gap-52 ">
-        <div>
+      <div className="flex flex-col mx-20 my-6 lg:flex-row lg:gap-52">
+        <div className="w-full flex justify-center">
           {Object.keys(cartItems).length === 0 ? (
-            <p className="mr-10">سبد خرید شما خالی است.</p>
+            <div className="text-center">
+              <p>سبد خرید شما خالی است.</p>
+              <img src="../../public/no items cart.svg" alt="" />
+              <Link
+              className="font-bold border text-violet-600 border-violet-600 rounded-md p-2"
+              to={`/`}>
+                مشاهده محصولات
+              </Link>
+             
+            </div>
           ) : (
             <div className="  p-5 mr-5">
               {Object.entries(cartItems).map(([productId, quantity]) => (
