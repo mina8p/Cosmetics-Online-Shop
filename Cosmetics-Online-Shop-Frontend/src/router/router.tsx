@@ -16,6 +16,7 @@ import CategorizationPage from "../pages/categorization/categorization";
 import SubcategorizationPage from "../pages/categorization/Subcategorization";
 import ProductPage from "../pages/singleProductPage/productPage";
 import ProductsLayout from "../layout/productsLayout/productsLayout";
+import LoginPageToBuy from "../pages/cart/loginPageToBuy";
 
 const routes = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ const routes = createBrowserRouter([
         path: "/finalizeCart",
         element: <FinalizeCart />,
       },
+      //*************//
+      //LoginPageToBuy
+      //*************//
+
+      {
+        path: "/LoginPageToBuy",
+        element: <LoginPageToBuy />,
+      },
       // {
       //   path: "/payment",
       //   element: <CartPayment />,
@@ -60,9 +69,7 @@ const routes = createBrowserRouter([
       {
         path: "/payment",
         element: <CartPayment />,
-        
       },
-
 
       {
         path: "/successfulPayment",
@@ -103,11 +110,12 @@ const routes = createBrowserRouter([
   //*************//
   //Admin-Login
   //*************//
-  
+
   {
     path: "/adminLogin",
     element: <AdminLogin />,
   },
+
   //*************//
   //Admin-Panel
   //*************//

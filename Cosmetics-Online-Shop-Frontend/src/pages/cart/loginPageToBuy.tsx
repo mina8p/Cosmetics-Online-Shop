@@ -15,7 +15,7 @@ interface FormErrors {
   form?: string;
 }
 
-const AdminLogin: React.FC = () => {
+const LoginPageToBuy: React.FC = () => {
   const [data, setData] = useState<FormData>({ username: "", password: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ const AdminLogin: React.FC = () => {
       localStorage.setItem("accessToken", response.data.token.accessToken);
       localStorage.setItem("adminId", response.data.data.user._id);
 
-      navigate("/adminPanel");
+      navigate("/finalizeCart");
     } catch (error) {
       const html = errorHandler(error);
       setErrors({ form: html });
@@ -185,4 +185,4 @@ const AdminLogin: React.FC = () => {
   );
 };
 
-export default AdminLogin;
+export default LoginPageToBuy;
