@@ -33,6 +33,8 @@ const HomePage: React.FC = () => {
       }
     };
 
+   
+
     const loadCategories = async () => {
       try {
         const categoriesData = await GetAllCategories();

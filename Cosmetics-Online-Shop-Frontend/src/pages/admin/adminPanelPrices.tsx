@@ -147,6 +147,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { fetchProducts } from "../../api/fetchProducts";
 import PriceTable from "../../components/adminPanelComponents/tables/Inventory&PricesTable";
+import Loading from "../../components/loding/loading";
 
 export interface Product {
   _id: string;
@@ -165,25 +166,22 @@ const AdminPanelPrices = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
- 
   const { page = "1" } = queryString.parse(location.search);
   const [currentPage, setCurrentPage] = useState(parseInt(page as string));
-
 
   const { data: products, isLoading } = useQuery(
     ["products", currentPage],
     () => fetchProducts(currentPage),
     {
-      keepPreviousData: true, 
+      keepPreviousData: true,
     }
   );
 
- 
   useEffect(() => {
     navigate(`?page=${currentPage}`, { replace: true });
   }, [currentPage, navigate]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)  return ( <div className="m-auto"><Loading /></div>);
 
   const handleChangingPage = (page: number) => {
     setCurrentPage(page);

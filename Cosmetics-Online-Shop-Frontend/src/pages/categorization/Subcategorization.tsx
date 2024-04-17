@@ -7,6 +7,7 @@ import { GetsubcategoryById } from "../../api/getsubcategorybyid";
 import { GetCategoryById } from "../../api/getCategoryById";
 import { Product } from "../admin/adminPanelProducts";
 import ProductItem from "../../components/products/productItem";
+import Loading from "../../components/loding/loading";
 
 const SubcategorizationPage = () => {
   const { subcategoryId, categoryId } = useParams<{
@@ -64,7 +65,7 @@ const SubcategorizationPage = () => {
   };
 
   if (!categoryName || !subcategoryName || !products)
-    return <div>Loading...</div>;
+    return ( <div className="m-auto"><Loading /></div>);
 
   return (
     <div className="m-5 w-full flex flex-col">

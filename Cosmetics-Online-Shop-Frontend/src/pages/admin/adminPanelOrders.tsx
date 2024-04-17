@@ -390,6 +390,7 @@ import OrdersTable from "../../components/adminPanelComponents/tables/ordersTabl
 import { getOrders } from "../../api/getOrders";
 
 import { useSearchParams } from "react-router-dom";
+import Loading from "../../components/loding/loading";
 
 export interface Order {
   _id: string;
@@ -433,7 +434,7 @@ const AdminPanelOrders = () => {
     setSearchParams(searchParams, { replace: true });
   }, [currentPage, deliveryFilter, setSearchParams]);
 
-  if (isLoading) return <div className='flex justify-center items-center h-64'>...</div>;
+  if (isLoading)  return ( <div className="m-auto"><Loading /></div>);
 
   const handleChangingPage = (page: number) => {
     setCurrentPage(page);

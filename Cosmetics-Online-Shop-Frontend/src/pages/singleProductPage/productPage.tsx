@@ -10,6 +10,13 @@ import { addItem } from "../../redux/cartSlice";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
+import Loading from "../../components/loding/loading";
+
+
+
+
+
+  
 
 
 
@@ -80,9 +87,9 @@ const ProductPage = () => {
     }
   );
 
-  if (isLoading) return <div>Loading product details...</div>;
-  if (error) return <div>An error occurred: {error.message}</div>;
-  if (!product) return <div>Product not found</div>;
+  if (isLoading)  return ( <div className="m-auto"><Loading /></div>);
+  if (error) return <div>خطا: {error.message}</div>;
+  if (!product) return <div>محصول یافت نشد</div>;
 
   ///////////////
   const sliderSettings = {

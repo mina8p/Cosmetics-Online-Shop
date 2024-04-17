@@ -181,6 +181,7 @@ import queryString from "query-string";
 import { fetchProducts } from "../../api/fetchProducts";
 import ProductTable from "../../components/adminPanelComponents/tables/productsTable";
 import ModalAddProduct from "../../components/modals/modalAddProduct";
+import Loading from "../../components/loding/loading";
 
 export interface Product {
   _id: string;
@@ -200,7 +201,6 @@ const AdminPanelProducts = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  
   const { page = "1" } = queryString.parse(location.search);
   const [currentPage, setCurrentPage] = useState(parseInt(page as string));
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -209,23 +209,17 @@ const AdminPanelProducts = () => {
     ["products", currentPage],
     () => fetchProducts(currentPage),
     {
-      keepPreviousData: true, 
+      keepPreviousData: true,
     }
   );
 
-  
   useEffect(() => {
     navigate(`?page=${currentPage}`, { replace: true });
   }, [currentPage, navigate]);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  if (isLoading)
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-      </div>
-    );
+  if (isLoading)  return ( <div className="m-auto"><Loading /></div>);
 
   const handleChangingPage = (page: number) => {
     setCurrentPage(page);

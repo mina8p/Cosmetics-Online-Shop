@@ -33,35 +33,7 @@ export const fetchUserById = async (id: string) => {
   return response.data;
 };
 
-// export default function FinalizeCart() {
-//   const [user, setUser] = useState<User | null>(null);
-//   const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
-//   const navigate = useNavigate();
-//   const cartItems = useSelector((state: RootState) => state.cart.items);
 
-//   useEffect(() => {
-//     const userId = "65e7295e50e39d2e1db9956a";
-//     fetchUserById(userId).then((data) => {
-//       setUser(data.data.user);
-//     });
-//   }, []);
-//
-////
-// export default function FinalizeCart() {
-//   const [user, setUser] = useState<User | null>(null);
-//   const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
-//   const navigate = useNavigate();
-//   const cartItems = useSelector((state: RootState) => state.cart.items);
-
-//   useEffect(() => {
-//     const adminId = localStorage.getItem("adminId");
-//     if(adminId) {
-//       fetchUserById(adminId).then((data) => {
-//         setUser(data.data.user);
-//       });
-//     }
-//   }, []);
-/////
 export default function FinalizeCart() {
   const [user, setUser] = useState<User | null>(null);
   const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
@@ -342,94 +314,32 @@ export default function FinalizeCart() {
 
 
 ////////////////////////////////////////////////////
-// //////ok miladi
-// import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../redux/store";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-
-// interface User {
-//   _id: string;
-//   firstname: string;
-//   lastname: string;
-//   username: string;
-//   phoneNumber: string;
-//   address: string;
-// }
-
-// export const fetchUserById = async (id: string) => {
-//   const token = localStorage.getItem("accessToken");
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   const response = await axios.get(
-//     `http://localhost:8000/api/users/${id}`,
-//     config
-//   );
-//   return response.data;
-// };
-
 // export default function FinalizeCart() {
 //   const [user, setUser] = useState<User | null>(null);
-//   const [deliveryDate, setDeliveryDate] = useState("");
+//   const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
 //   const navigate = useNavigate();
 //   const cartItems = useSelector((state: RootState) => state.cart.items);
 
 //   useEffect(() => {
-//     const userId = "65e7295e50e39d2e1db9956a"; // ID provided for the user
+//     const userId = "65e7295e50e39d2e1db9956a";
 //     fetchUserById(userId).then((data) => {
 //       setUser(data.data.user);
 //     });
 //   }, []);
+//
+////
+// export default function FinalizeCart() {
+//   const [user, setUser] = useState<User | null>(null);
+//   const [deliveryDate, setDeliveryDate] = useState<number | null>(null); // Change the state to store unix timestamp
+//   const navigate = useNavigate();
+//   const cartItems = useSelector((state: RootState) => state.cart.items);
 
-//   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setDeliveryDate(event.target.value);
-//   };
-
-//   const handleNavigateToPayment = () => {
-
-//     if (user && deliveryDate && Object.keys(cartItems).length > 0) {
-
-//       const orderInfo = {
-//         userId: user._id,
-//         deliveryDate: deliveryDate,
-//         cartItems: cartItems,
-//       };
-
-//       localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
-//       navigate("/payment");
-//     } else {
-//       alert("لطفاً تمامی اطلاعات را وارد کنید.");
+//   useEffect(() => {
+//     const adminId = localStorage.getItem("adminId");
+//     if(adminId) {
+//       fetchUserById(adminId).then((data) => {
+//         setUser(data.data.user);
+//       });
 //     }
-//   };
-
-//   return (
-//     <div>
-//       <h1 className="text-3xl font-bold underline">Finalize Cart</h1>
-//       <div>
-//         {user && (
-//           <div>
-//             <p>نام: {user.firstname}</p>
-//             <p>نام خانوادگی: {user.lastname}</p>
-//             <p>نام کاربری: {user.username}</p>
-//             <p>شماره تلفن: {user.phoneNumber}</p>
-//             <p>آدرس: {user.address}</p>
-//             <label>
-//               تاریخ تحویل:
-//               <input
-//                 type="date"
-//                 value={deliveryDate}
-//                 onChange={handleDateChange}
-//               />
-//             </label>
-//           </div>
-//         )}
-//         <button onClick={handleNavigateToPayment}>ادامه به پرداخت</button>
-//       </div>
-//     </div>
-//   );
-// }
-//////
+//   }, []);
+/////

@@ -6,6 +6,7 @@ import { GetAllProductsInCategory } from "../../api/getAllProductsInCategory";
 import { GetCategoryById } from "../../api/getCategoryById";
 import { Product } from "../admin/adminPanelProducts";
 import ProductItem from "../../components/products/productItem";
+import Loading from "../../components/loding/loading";
 
 const CategorizationPage = () => {
   const { categoryId } = useParams<{ categoryId: string | undefined }>();
@@ -49,7 +50,7 @@ const CategorizationPage = () => {
     navigate(`?page=${page}`);
   };
 
-  if (!categoryName || !products) return <div>Loading...</div>;
+  if (!categoryName || !products) return ( <div className="m-auto"><Loading /></div>);
 
   return (
     <div className="m-5 w-full flex flex-col">
