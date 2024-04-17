@@ -137,11 +137,35 @@ const routes = createBrowserRouter([
       },
       {
         path: "*",
-        // element: <NotFound />,
+        element: <NotFound />,
       },
     ],
-    // errorElement: <NotFound />,
+    errorElement: <NotFound />,
   },
 ]);
 
 export default routes;
+
+
+//////////////////////////
+
+ // {
+      //   path: "/payment",
+      //   element: <CartPayment />,
+      //   children: [
+      //     {
+      //       path: "successfulPayment",
+      //       element: <SuccessfulPayment />,
+      //     },
+      //     {
+      //       path: "unsuccessfulPayment",
+      //       element: <UnsuccessfulPayment />,
+      //     },
+      //   ],
+      // },
+
+
+      // Import necessary components
+
+
+

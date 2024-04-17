@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetAllProducts } from "../../api/getAllProducts";
 import { GetAllCategories } from "../../api/getAllCategories";
+import MainSlider from "../../components/homePage/mainSlider";
 
 interface Product {
   _id: string;
@@ -70,7 +71,9 @@ const HomePage: React.FC = () => {
               </div>
               <p
                 className={`${
-                  product.quantity === 0 ? "text-gray-500 text-left mt-2" : "text-black text-left mt-2"
+                  product.quantity === 0
+                    ? "text-gray-500 text-left mt-2"
+                    : "text-black text-left mt-2"
                 }`}
               >
                 {product.quantity === 0 ? "ناموجود" : `${product.price} تومان`}
@@ -84,6 +87,9 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="w-full">
+      <div className="mt-5">
+        <MainSlider />
+      </div>
       {categories.map((category: Category) => (
         <div key={category._id}>
           <div className="mb-10 mt-2">

@@ -55,20 +55,50 @@ const AdminLogin: React.FC = () => {
       return;
     }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        data
-      );
-      localStorage.setItem("accessToken", response.data.token.accessToken);
-      localStorage.setItem("adminId", response.data.data.user._id);
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:8000/api/auth/login",
+    //     data
+    //   );
+    //   localStorage.setItem("accessToken", response.data.token.accessToken);
+    //   localStorage.setItem("adminId", response.data.data.user._id);
 
-      navigate("/adminPanel");
-    } catch (error) {
-      const html = errorHandler(error);
-      setErrors({ form: html });
-    }
+    //   navigate("/adminPanel");
+    // } catch (error) {
+    //   const html = errorHandler(error);
+    //   setErrors({ form: html });
+    // }
+////////////
+try {
+  const response = await axios.post(
+    "http://localhost:8000/api/auth/login",
+    data
+  );
+  
+  // Check if the user is an admin
+  const userRole = response.data.data.user.role;
+  if (userRole !== 'ADMIN') {
+    
+    // setErrors({ form: "You do not have permission to access this page." });
+    setErrors({ form: "نام کاربری یا رمز عبور اشتباه است" });
+    
+    navigate("/adminLogin");
+    return;
+  }
+
+  // If the user is an admin, set the access token and adminId in localStorage and navigate to the adminPanel page
+  localStorage.setItem("accessToken", response.data.token.accessToken);
+  localStorage.setItem("adminId", response.data.data.user._id);
+  navigate("/adminPanel");
+} catch (error) {
+  const html = errorHandler(error);
+  setErrors({ form: html });
+}
+
+///////////
   };
+
+  
 
   return (
     <div className="h-screen w-full bg-violet-50">
