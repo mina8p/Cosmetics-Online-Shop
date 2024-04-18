@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {  useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import queryString from "query-string";
 import { GetAllProductsInCategory } from "../../api/getAllProductsInCategory";
@@ -50,31 +50,71 @@ const CategorizationPage = () => {
     navigate(`?page=${page}`);
   };
 
-  if (!categoryName || !products) return ( <div className="m-auto"><Loading /></div>);
+  if (!categoryName || !products)
+    return (
+      <div className="m-auto">
+        <Loading />
+      </div>
+    );
 
   return (
     <div className="m-5 w-full flex flex-col">
       <div className="text-xl font-bold mb-6">{`خانه / ${categoryName}`}</div>
       <div className="grid grid-cols-1 m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {products.map((product: Product) => (
-          <ProductItem key={product._id} product={product} />))}
-      </div>
-      <div className="pagination flex justify-center items-center mt-4">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`page-item ${
-              currentPage === index + 1 ? "active font-bold" : ""
-            }`}
-            style={{ margin: "0 5px" }}
-          >
-            {index + 1}
-          </button>
+          <ProductItem key={product._id} product={product} />
         ))}
       </div>
+      <div className="pagination flex justify-center items-center mt-4">
+  {currentPage > 1 && (
+    <button
+      onClick={() => handlePageChange(currentPage - 1)}
+      className="page-item"
+      style={{ margin: "0 5px" }}
+    >
+      {"<"}
+    </button>
+  )}
+  {Array.from({ length: totalPages }, (_, index) => (
+    <button
+      key={index}
+      onClick={() => handlePageChange(index + 1)}
+      className={`page-item ${
+        currentPage === index + 1 ? "active font-bold" : ""
+      }`}
+      style={{ margin: "0 5px" }}
+    >
+      {index + 1}
+    </button>
+  ))}
+  {currentPage < totalPages && (
+    <button
+      onClick={() => handlePageChange(currentPage + 1)}
+      className="page-item"
+      style={{ margin: "0 5px" }}
+    >
+      {">"}
+    </button>
+  )}
+</div>
+
     </div>
   );
 };
 
 export default CategorizationPage;
+
+{/* <div className="pagination flex justify-center items-center mt-4">
+  {Array.from({ length: totalPages }, (_, index) => (
+    <button
+      key={index}
+      onClick={() => handlePageChange(index + 1)}
+      className={`page-item ${
+        currentPage === index + 1 ? "active font-bold" : ""
+      }`}
+      style={{ margin: "0 5px" }}
+    >
+      {index + 1}
+    </button>
+  ))}
+</div>; */}

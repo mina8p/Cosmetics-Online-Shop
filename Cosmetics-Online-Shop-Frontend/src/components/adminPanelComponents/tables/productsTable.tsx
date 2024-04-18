@@ -6,6 +6,7 @@ import { deleteProduct } from "../../../api/deleteProduct";
 import { ModalEditProduct } from "../../modals/modalEditProduct";
 import { updateProduct } from "../../../api/updateProducts";
 import { fetchProductById } from "../../../api/fetchProductsById";
+import { Link } from "react-router-dom";
 
 export default function ProductTable({
   _id,
@@ -89,7 +90,8 @@ export default function ProductTable({
           />
         </td>
         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
-          {name}
+        <Link to={`/products/${_id}`}>{name}</Link>
+         
         </td>
         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-600 text-center">
           <p className="font-IRANSans">

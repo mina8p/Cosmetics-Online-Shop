@@ -3,6 +3,7 @@ import { GetAllCategories } from "../api/getAllCategories";
 import { GetAllSubcategories } from "../api/getAllSubcategories";
 import { useQuery } from "react-query";
 import { useState } from "react";
+import Loading from "./loding/loading";
 
 type Category = {
   _id: string;
@@ -23,7 +24,11 @@ const Navbar = () => {
   const subcategoriesQuery = useQuery("subcategories", GetAllSubcategories);
 
   if (categoriesQuery.isLoading || subcategoriesQuery.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="m-auto">
+        <Loading />
+      </div>
+    );
   }
 
   if (categoriesQuery.error instanceof Error) {
@@ -72,7 +77,9 @@ const Navbar = () => {
             <Link to={`/categorization/${category._id}`}>{category.name}</Link>
             {category.subcategories?.map((subcategory: Subcategory) => (
               <div key={subcategory._id} className="pl-4 hover:bg-violet-800">
-                <Link to={`/subcategorization/${subcategory._id}`}>
+                <Link
+                  to={`/categorization/${category._id}/subcategorization/${subcategory._id}`}
+                >
                   {subcategory.name}
                 </Link>
               </div>

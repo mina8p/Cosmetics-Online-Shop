@@ -52,20 +52,7 @@ const routes = createBrowserRouter([
         path: "/LoginPageToBuy",
         element: <LoginPageToBuy />,
       },
-      // {
-      //   path: "/payment",
-      //   element: <CartPayment />,
-      //   children: [
-      //     {
-      //       path: "successfulPayment",
-      //       element: <SuccessfulPayment />,
-      //     },
-      //     {
-      //       path: "unsuccessfulPayment",
-      //       element: <UnsuccessfulPayment />,
-      //     },
-      //   ],
-      // },
+
       {
         path: "/payment",
         element: <CartPayment />,
@@ -137,35 +124,30 @@ const routes = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound />,
+        // element: <NotFound />,
       },
     ],
-    errorElement: <NotFound />,
+    // errorElement: <NotFound />,
   },
 ]);
 
 export default routes;
 
-
 //////////////////////////
 
- // {
-      //   path: "/payment",
-      //   element: <CartPayment />,
-      //   children: [
-      //     {
-      //       path: "successfulPayment",
-      //       element: <SuccessfulPayment />,
-      //     },
-      //     {
-      //       path: "unsuccessfulPayment",
-      //       element: <UnsuccessfulPayment />,
-      //     },
-      //   ],
-      // },
+// {
+//   path: "/payment",
+//   element: <CartPayment />,
+//   children: [
+//     {
+//       path: "successfulPayment",
+//       element: <SuccessfulPayment />,
+//     },
+//     {
+//       path: "unsuccessfulPayment",
+//       element: <UnsuccessfulPayment />,
+//     },
+//   ],
+// },
 
-
-      // Import necessary components
-
-
-
+// Import necessary components

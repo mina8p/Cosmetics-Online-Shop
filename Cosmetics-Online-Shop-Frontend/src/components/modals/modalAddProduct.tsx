@@ -298,6 +298,10 @@ import { useQueryClient } from "react-query";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+
+
+
+
 export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
   isOpen,
   onClose,
@@ -378,20 +382,25 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
   };
 
   if (!isOpen) return null;
-//
+  /////////////////////
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
       [{ list: "ordered" }, { list: "bullet" }],
       ["link", "image"],
-      ["clean"],
+      [{ 'color': [] }, { 'background': [] }]
     ],
   };
-  ////////////////
+
+  ///////////////////
+
+  
+
+  //////////////////
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center  ">
-      <div className="bg-white p-5 rounded-lg relative w-[550px]">
+      <div className="bg-white p-5 rounded-lg relative w-[570px]">
         <button
           type="button"
           onClick={onClose}
@@ -448,9 +457,11 @@ export const ModalAddProduct: React.FC<ModalAddProductProps> = ({
               توضیحات
             </label>
             <ReactQuill
+            className="overflow-y-auto max-h-32"
               modules={modules}
               value={product.description}
               onChange={(content) => {
+                
                 setProduct({ ...product, description: content });
               }}
             />
