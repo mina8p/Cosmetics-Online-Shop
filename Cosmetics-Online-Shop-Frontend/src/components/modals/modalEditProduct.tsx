@@ -265,7 +265,7 @@ export const ModalEditProduct: React.FC<EditProductModalProps> = ({
       ["bold", "italic", "underline", "strike", "blockquote"],
       [{ list: "ordered" }, { list: "bullet" }],
       ["link", "image"],
-      ["clean"],
+      [{ color: [] }, { background: [] }],
     ],
   };
 
@@ -285,7 +285,7 @@ export const ModalEditProduct: React.FC<EditProductModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center  ">
-      <div className="bg-white p-5 rounded-lg relative w-[550px]">
+      <div className="bg-white p-5 rounded-lg relative w-[570px]">
         <button
           className="absolute top-0 left-4 mt-4 mr-4 text-gray-700 hover:text-gray-900 transition ease-in-out duration-150"
           onClick={onClose}
@@ -343,6 +343,7 @@ export const ModalEditProduct: React.FC<EditProductModalProps> = ({
               توضیحات
             </label>
             <ReactQuill
+             className="overflow-y-auto max-h-24"
               theme="snow"
               value={formData.description}
               onChange={(content) =>

@@ -415,26 +415,38 @@ export interface Order {
 
 const AdminPanelOrders = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const deliveryStatusFromUrl = searchParams.get('deliveryStatus');
-  const pageFromUrl = parseInt(searchParams.get('page') || '1');
-  
-  const deliveryFilter = deliveryStatusFromUrl === null ? undefined : deliveryStatusFromUrl === 'true';
+  const deliveryStatusFromUrl = searchParams.get("deliveryStatus");
+  const pageFromUrl = parseInt(searchParams.get("page") || "1");
+
+  const deliveryFilter =
+    deliveryStatusFromUrl === null
+      ? undefined
+      : deliveryStatusFromUrl === "true";
   const [currentPage, setCurrentPage] = useState(pageFromUrl);
 
-  const { data: orders, isLoading } = useQuery(['orders', currentPage, deliveryFilter], () => getOrders(currentPage, deliveryFilter), {});
+  const { data: orders, isLoading } = useQuery(
+    ["orders", currentPage, deliveryFilter],
+    () => getOrders(currentPage, deliveryFilter),
+    {}
+  );
 
   useEffect(() => {
     // Update URL when currentPage changes
-    searchParams.set('page', String(currentPage));
+    searchParams.set("page", String(currentPage));
     if (deliveryFilter !== undefined) {
-      searchParams.set('deliveryStatus', String(deliveryFilter));
+      searchParams.set("deliveryStatus", String(deliveryFilter));
     } else {
-      searchParams.delete('deliveryStatus');
+      searchParams.delete("deliveryStatus");
     }
     setSearchParams(searchParams, { replace: true });
   }, [currentPage, deliveryFilter, setSearchParams]);
 
-  if (isLoading)  return ( <div className="m-auto"><Loading /></div>);
+  if (isLoading)
+    return (
+      <div className="m-auto">
+        <Loading />
+      </div>
+    );
 
   const handleChangingPage = (page: number) => {
     setCurrentPage(page);
@@ -443,13 +455,12 @@ const AdminPanelOrders = () => {
   const handleFilterChange = (filter: boolean | undefined) => {
     setCurrentPage(1); // Reset to first page when filter changes
     if (filter === undefined) {
-      searchParams.delete('deliveryStatus');
+      searchParams.delete("deliveryStatus");
     } else {
-      searchParams.set('deliveryStatus', String(filter));
+      searchParams.set("deliveryStatus", String(filter));
     }
     setSearchParams(searchParams, { replace: true });
   };
-
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 font-IRANSans mb-28">
@@ -549,37 +560,79 @@ const AdminPanelOrders = () => {
           </div>
         </div>
       </div>
-
       {orders?.total_pages > 1 && (
         <nav className="flex justify-center m-2 text-gray-600">
           <ul className="rounded-lg flex overflow-hidden">
-            {orders?.total_pages > 1 && (
-              <nav className="flex justify-center m-8">
-                <ul className="border-2 border-violet-200 rounded-lg flex">
-                  {currentPage > 1 && (
-                    <li
-                      className="cursor-pointer"
-                      onClick={() => handleChangingPage(currentPage - 1)}
-                    >
-                      <span className="px-3 ">قبلی</span>
-                    </li>
-                  )}
-
-                  <li className="bg-violet-200">
-                    <span className="px-3 ">{currentPage}</span>
+            <nav className="flex justify-center m-8">
+              <ul className="border-2 border-violet-200 rounded-lg flex">
+                {currentPage > 1 && (
+                  <li
+                    className="cursor-pointer"
+                    onClick={() => handleChangingPage(currentPage - 1)}
+                  >
+                    <span className="px-3 ">قبلی</span>
                   </li>
+                )}
 
-                  {currentPage < orders.total_pages && (
+                {currentPage > 3 && (
+                  <>
                     <li
                       className="cursor-pointer"
-                      onClick={() => handleChangingPage(currentPage + 1)}
+                      onClick={() => handleChangingPage(1)}
                     >
-                      <span className="px-3 ">بعدی</span>
+                      <span className="px-3 ">1</span>
                     </li>
-                  )}
-                </ul>
-              </nav>
-            )}
+                    <li className="px-3">...</li>
+                  </>
+                )}
+
+                {[...Array(orders.total_pages).keys()].map((page) => {
+                  if (
+                    page + 1 === currentPage ||
+                    page + 1 === currentPage - 1 ||
+                    page + 1 === currentPage - 2 ||
+                    page + 1 === currentPage + 1 ||
+                    page + 1 === currentPage + 2
+                  ) {
+                    return (
+                      <li
+                        key={page + 1}
+                        className={
+                          page + 1 === currentPage
+                            ? "bg-violet-200"
+                            : "cursor-pointer"
+                        }
+                        onClick={() => handleChangingPage(page + 1)}
+                      >
+                        <span className="px-3">{page + 1}</span>
+                      </li>
+                    );
+                  }
+                  return null;
+                })}
+
+                {currentPage < orders.total_pages - 2 && (
+                  <>
+                    <li className="px-3">...</li>
+                    <li
+                      className="cursor-pointer"
+                      onClick={() => handleChangingPage(orders.total_pages)}
+                    >
+                      <span className="px-3 ">{orders.total_pages}</span>
+                    </li>
+                  </>
+                )}
+
+                {currentPage < orders.total_pages && (
+                  <li
+                    className="cursor-pointer"
+                    onClick={() => handleChangingPage(currentPage + 1)}
+                  >
+                    <span className="px-3 ">بعدی</span>
+                  </li>
+                )}
+              </ul>
+            </nav>
           </ul>
         </nav>
       )}
@@ -590,3 +643,36 @@ const AdminPanelOrders = () => {
 export default AdminPanelOrders;
 
 ////////////////////////////////////////////
+// {orders?.total_pages > 1 && (
+//   <nav className="flex justify-center m-2 text-gray-600">
+//     <ul className="rounded-lg flex overflow-hidden">
+//       {orders?.total_pages > 1 && (
+//         <nav className="flex justify-center m-8">
+//           <ul className="border-2 border-violet-200 rounded-lg flex">
+//             {currentPage > 1 && (
+//               <li
+//                 className="cursor-pointer"
+//                 onClick={() => handleChangingPage(currentPage - 1)}
+//               >
+//                 <span className="px-3 ">قبلی</span>
+//               </li>
+//             )}
+
+//             <li className="bg-violet-200">
+//               <span className="px-3 ">{currentPage}</span>
+//             </li>
+
+//             {currentPage < orders.total_pages && (
+//               <li
+//                 className="cursor-pointer"
+//                 onClick={() => handleChangingPage(currentPage + 1)}
+//               >
+//                 <span className="px-3 ">بعدی</span>
+//               </li>
+//             )}
+//           </ul>
+//         </nav>
+//       )}
+//     </ul>
+//   </nav>
+// )}

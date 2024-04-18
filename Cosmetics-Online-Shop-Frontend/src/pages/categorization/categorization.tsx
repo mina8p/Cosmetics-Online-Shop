@@ -65,46 +65,79 @@ const CategorizationPage = () => {
           <ProductItem key={product._id} product={product} />
         ))}
       </div>
-      <div className="pagination flex justify-center items-center mt-4">
-  {currentPage > 1 && (
-    <button
-      onClick={() => handlePageChange(currentPage - 1)}
-      className="page-item"
-      style={{ margin: "0 5px" }}
-    >
-      {"<"}
-    </button>
-  )}
-  {Array.from({ length: totalPages }, (_, index) => (
-    <button
-      key={index}
-      onClick={() => handlePageChange(index + 1)}
-      className={`page-item ${
-        currentPage === index + 1 ? "active font-bold" : ""
-      }`}
-      style={{ margin: "0 5px" }}
-    >
-      {index + 1}
-    </button>
-  ))}
-  {currentPage < totalPages && (
-    <button
-      onClick={() => handlePageChange(currentPage + 1)}
-      className="page-item"
-      style={{ margin: "0 5px" }}
-    >
-      {">"}
-    </button>
-  )}
-</div>
 
+      <div className="pagination flex justify-center items-center mt-4">
+        {currentPage > 1 && (
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="page-item  font-bold"
+            style={{ margin: "0 5px" }}
+          >
+            {"<"}
+          </button>
+        )}
+        {Array.from({ length: totalPages }, (_, index) => {
+          if (
+            index + 1 === currentPage ||
+            index + 1 === currentPage - 1 ||
+            index + 1 === currentPage - 2 ||
+            index + 1 === currentPage + 1 ||
+            index + 1 === currentPage + 2 ||
+            index + 1 === 1 ||
+            index + 1 === 2 ||
+            index + 1 === totalPages ||
+            index + 1 === totalPages - 1
+          ) {
+            return (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={`page-item ${
+                  currentPage === index + 1
+                    ? "bg-violet-400 text-white font-bold  px-2 rounded-full"
+                    : "text-gray-700"
+                } `}
+                style={{ margin: "0 5px" }}
+              >
+                {index + 1}
+              </button>
+            );
+          }
+          if (
+            (index === 2 && currentPage > 4) ||
+            (index === totalPages - 3 && currentPage < totalPages - 3)
+          ) {
+            return (
+              <button
+                key={index}
+                disabled={true}
+                className="page-item text-gray-600"
+                style={{ margin: "0 5px" }}
+              >
+                {"..."}
+              </button>
+            );
+          }
+          return null;
+        })}
+        {currentPage < totalPages && (
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="page-item  font-bold"
+            style={{ margin: "0 5px" }}
+          >
+            {">"}
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
 export default CategorizationPage;
 
-{/* <div className="pagination flex justify-center items-center mt-4">
+{
+  /* <div className="pagination flex justify-center items-center mt-4">
   {Array.from({ length: totalPages }, (_, index) => (
     <button
       key={index}
@@ -117,4 +150,5 @@ export default CategorizationPage;
       {index + 1}
     </button>
   ))}
-</div>; */}
+</div>; */
+}

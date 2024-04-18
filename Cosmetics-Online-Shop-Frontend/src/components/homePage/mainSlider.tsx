@@ -6,7 +6,7 @@ import Slider from "react-slick";
 const NextArrow = ({ onClick }: { onClick?: () => void }) => (
   <button
     onClick={onClick}
-    className="absolute top-1/2 -right-1 -translate-y-1/2 z-10 text-2xl   text-violet-600 p-2 rounded-full font-bold"
+    className="absolute top-1/2 -right-0 -translate-y-1/2 z-10 text-2xl   text-violet-600 p-2 rounded-full font-bold"
     style={{ display: "block" }}
   >
     &gt;
@@ -16,7 +16,7 @@ const NextArrow = ({ onClick }: { onClick?: () => void }) => (
 const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
   <button
     onClick={onClick}
-    className="absolute top-1/2 -left-1 -translate-y-1/2 z-10 text-2xl  text-violet-600 p-2 rounded-full font-bold"
+    className="absolute top-1/2 -left-0 -translate-y-1/2 z-10 text-2xl  text-violet-600 p-2 rounded-full font-bold"
     style={{ display: "block" }}
   >
     &lt;

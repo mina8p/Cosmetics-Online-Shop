@@ -181,7 +181,12 @@ const AdminPanelPrices = () => {
     navigate(`?page=${currentPage}`, { replace: true });
   }, [currentPage, navigate]);
 
-  if (isLoading)  return ( <div className="m-auto"><Loading /></div>);
+  if (isLoading)
+    return (
+      <div className="m-auto">
+        <Loading />
+      </div>
+    );
 
   const handleChangingPage = (page: number) => {
     setCurrentPage(page);
@@ -259,36 +264,96 @@ const AdminPanelPrices = () => {
           </div>
         </div>
       </div>
+
       {products?.total_pages > 1 && (
-        <nav className="flex justify-center m-8 text-gray-600">
-          <ul className="border-2 border-violet-200 rounded-lg flex">
-            {currentPage > 1 && (
-              <li
-                className="cursor-pointer"
-                onClick={() => handleChangingPage(currentPage - 1)}
-              >
-                <span className="px-3 ">قبلی</span>
-              </li>
-            )}
-
-            <li className="bg-violet-200">
-              <span className="px-3 ">{currentPage}</span>
-            </li>
-
-            {currentPage < products.total_pages && (
-              <li
-                className="cursor-pointer"
-                onClick={() => handleChangingPage(currentPage + 1)}
-              >
-                <span className="px-3 ">بعدی</span>
-              </li>
-            )}
-          </ul>
-        </nav>
+  <nav className="flex justify-center m-8 text-gray-600">
+    <ul className="border-2 border-violet-200 rounded-lg flex">
+      {currentPage > 1 && (
+        <li className="cursor-pointer" onClick={() => handleChangingPage(currentPage - 1)}>
+          <span className="px-3 ">قبلی</span>
+        </li>
       )}
+      
+      {currentPage > 3 && (
+        <>
+          <li className="cursor-pointer" onClick={() => handleChangingPage(1)}>
+            <span className="px-3 ">1</span>
+          </li>
+          <li className="px-3">...</li>
+        </>
+      )}
+
+      {[...Array(products.total_pages).keys()].map((page) => {
+        if (
+          page + 1 === currentPage || 
+          page + 1 === currentPage - 1 || 
+          page + 1 === currentPage - 2 ||
+          page + 1 === currentPage + 1 ||
+          page + 1 === currentPage + 2
+        ) {
+          return (
+            <li
+              key={page + 1}
+              className={page + 1 === currentPage ? "bg-violet-200" : "cursor-pointer"}
+              onClick={() => handleChangingPage(page + 1)}
+            >
+              <span className="px-3">{page + 1}</span>
+            </li>
+          );
+        }
+        return null;
+      })}
+      
+      {currentPage < products.total_pages - 2 && (
+        <>
+          <li className="px-3">...</li>
+          <li className="cursor-pointer" onClick={() => handleChangingPage(products.total_pages)}>
+            <span className="px-3 ">{products.total_pages}</span>
+          </li>
+        </>
+      )}
+
+      {currentPage < products.total_pages && (
+        <li className="cursor-pointer" onClick={() => handleChangingPage(currentPage + 1)}>
+          <span className="px-3 ">بعدی</span>
+        </li>
+      )}
+    </ul>
+  </nav>
+)}
+
+
+
     </div>
   );
 };
 
 export default AdminPanelPrices;
 ///////////////////////////////////
+//  {products?.total_pages > 1 && (
+//         <nav className="flex justify-center m-8 text-gray-600">
+//           <ul className="border-2 border-violet-200 rounded-lg flex">
+//             {currentPage > 1 && (
+//               <li
+//                 className="cursor-pointer"
+//                 onClick={() => handleChangingPage(currentPage - 1)}
+//               >
+//                 <span className="px-3 ">قبلی</span>
+//               </li>
+//             )}
+
+//             <li className="bg-violet-200">
+//               <span className="px-3 ">{currentPage}</span>
+//             </li>
+
+//             {currentPage < products.total_pages && (
+//               <li
+//                 className="cursor-pointer"
+//                 onClick={() => handleChangingPage(currentPage + 1)}
+//               >
+//                 <span className="px-3 ">بعدی</span>
+//               </li>
+//             )}
+//           </ul>
+//         </nav>
+//       )}
