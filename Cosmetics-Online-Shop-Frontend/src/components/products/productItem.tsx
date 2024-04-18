@@ -18,8 +18,14 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
           <div className="w-48">
             <h3>{product.name}</h3>
           </div>
-          <p className="text-left">
-            {product.quantity === 0 ? " ناموجود" : `${product.price} تومان`}
+          <p
+            className={`${
+              product.quantity === 0
+                ? "text-gray-500 text-left mt-2"
+                : "text-black text-left mt-2"
+            }`}
+          >
+            {product.quantity === 0 ? "ناموجود" : `${product.price} تومان`}
           </p>
         </div>
       </div>

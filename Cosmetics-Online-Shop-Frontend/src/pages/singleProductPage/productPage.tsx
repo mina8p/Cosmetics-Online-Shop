@@ -12,14 +12,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import Loading from "../../components/loding/loading";
 
-
-
-
-
-  
-
-
-
 type Product = {
   _id: string;
   name: string;
@@ -87,7 +79,12 @@ const ProductPage = () => {
     }
   );
 
-  if (isLoading)  return ( <div className="m-auto"><Loading /></div>);
+  if (isLoading)
+    return (
+      <div className="m-auto">
+        <Loading />
+      </div>
+    );
   if (error) return <div>خطا: {error.message}</div>;
   if (!product) return <div>محصول یافت نشد</div>;
 
@@ -130,7 +127,7 @@ const ProductPage = () => {
           {`${product.category.name} / ${product.subcategory.name}`}
         </div>
 
-        <div className="m-5 w-96 h-60 flex flex-col items-center shadow p-10">
+        <div className="m-5 w-96 h-64 flex flex-col items-center shadow p-10">
           <div>
             <h2 className="w-80">{product.name}</h2>
             {/* /شرط موجودی/ */}
@@ -187,9 +184,9 @@ const ProductComponent: React.FC<ProductComponentProps> = ({ product }) => {
       setHideInput(true);
       setQuantity(0);
     } else {
-      setQuantity(Math.min(1, maxPossible)); // Set to 1 or less if the stock is limited
+      setQuantity(Math.min(1, maxPossible)); 
     }
-  }, [product.quantity, productInCart]); // Depend on product's total quantity and its cart count
+  }, [product.quantity, productInCart]); 
 
   const incrementQuantity = () => {
     setQuantity((prevQuantity) => {
@@ -223,7 +220,7 @@ const ProductComponent: React.FC<ProductComponentProps> = ({ product }) => {
   };
 
   if (product.quantity === 0) {
-    return <div className="text-gray-500 mt-2"> ناموجود</div>;
+    return <div className="text-gray-500 mt-2 "> اتمام موجودی</div>;
   } else {
     return (
       <div className="">
@@ -251,11 +248,11 @@ const ProductComponent: React.FC<ProductComponentProps> = ({ product }) => {
             </button>
           </div>
         ) : (
-          <div className="text-purple-900 text-xl font-bold mt-2">حداکثر</div> // Display "Maximum" when input group is hidden
+          <div className="text-purple-900 text-lg font-bold mt-2">شما حداکثر تعداد را انتخاب کردید</div> // Display "Maximum" when input group is hidden
         )}
 
         <button
-          className={`w-80 text-white rounded-3xl focus:outline-none font-medium text-sm px-5 py-2.5 text-center mt-5 ${
+          className={`w-80 text-white rounded-3xl focus:outline-none font-medium text-sm px-5 py-2.5 text-center mt-5  ${
             hideInput ? "bg-purple-200" : "bg-purple-500 hover:bg-purple-700"
           }`}
           onClick={handleAddToCart}

@@ -78,7 +78,7 @@ const SubcategorizationPage = () => {
         {currentPage > 1 && (
           <button
             onClick={() => handlePageChange(currentPage - 1)}
-            className="page-item  font-bold"
+            className="page-item text-gray-600 font-bold"
             style={{ margin: "0 5px" }}
           >
             {"<"}
@@ -131,7 +131,7 @@ const SubcategorizationPage = () => {
         {currentPage < totalPages && (
           <button
             onClick={() => handlePageChange(currentPage + 1)}
-            className="page-item  font-bold"
+            className="page-item text-gray-600 font-bold"
             style={{ margin: "0 5px" }}
           >
             {">"}

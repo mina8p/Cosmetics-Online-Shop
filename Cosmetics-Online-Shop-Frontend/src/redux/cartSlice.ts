@@ -53,4 +53,6 @@ export const { addItem, removeItem, deleteItem, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
 
+////////////////
+
 
